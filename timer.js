@@ -7,6 +7,11 @@ let remainSet = 0;
 let timeHandlerID;
 let setHandlerID;
 
+let defaultTimeMin = "15";
+let defaultTimeSec = "00";
+let defaultSetMin = "03";
+let defaultSetSec = "00";
+
 var loadFile1 = function() {
     var image = document.getElementById('team1');
     let val = document.getElementById("finput1").value;
@@ -108,8 +113,9 @@ function pauseTime() {
 }
 
 function resetTime() {
-    document.getElementById("timeMinutes").innerHTML = "15";
-    document.getElementById("timeSeconds").innerHTML = "00";
+    updateDefaultTime()
+    document.getElementById("timeMinutes").innerHTML = defaultTimeMin;
+    document.getElementById("timeSeconds").innerHTML = defaultTimeSec;
 
     clearInterval(timeHandlerID);
     startedTime = false;
@@ -121,8 +127,9 @@ function pauseSet() {
 }
 
 function resetSet() {
-    document.getElementById("setMinutes").innerHTML = "03";
-    document.getElementById("setSeconds").innerHTML = "00";
+    updateDefaultTime()
+    document.getElementById("setMinutes").innerHTML = defaultSetMin;
+    document.getElementById("setSeconds").innerHTML = defaultSetSec;
 
     document.body.style.background = "white";
 
@@ -144,10 +151,11 @@ function pauseAllTimers() {
 }
 
 function resetAll() {
-    document.getElementById("timeMinutes").innerHTML = "15";
-    document.getElementById("timeSeconds").innerHTML = "00";
-    document.getElementById("setMinutes").innerHTML = "03";
-    document.getElementById("setSeconds").innerHTML = "00";
+    updateDefaultTime()
+    document.getElementById("timeMinutes").innerHTML = defaultTimeMin;
+    document.getElementById("timeSeconds").innerHTML = defaultTimeSec;
+    document.getElementById("setMinutes").innerHTML = defaultSetMin;
+    document.getElementById("setSeconds").innerHTML = defaultSetSec;
 
     clearInterval(timeHandlerID);
     startedTime = false;
@@ -161,10 +169,11 @@ function resetAll() {
 }
 
 function resetAllTimers() {
-    document.getElementById("timeMinutes").innerHTML = "15";
-    document.getElementById("timeSeconds").innerHTML = "00";
-    document.getElementById("setMinutes").innerHTML = "03";
-    document.getElementById("setSeconds").innerHTML = "00";
+    updateDefaultTime()
+    document.getElementById("timeMinutes").innerHTML = defaultTimeMin;
+    document.getElementById("timeSeconds").innerHTML = defaultTimeSec;
+    document.getElementById("setMinutes").innerHTML = defaultSetMin;
+    document.getElementById("setSeconds").innerHTML = defaultSetSec;
 
     clearInterval(timeHandlerID);
     startedTime = false;
@@ -208,14 +217,17 @@ function changeSetRemain() {
     document.getElementById("setSeconds").innerHTML = input.substring(3, 5);
 }
 
-document.addEventListener("keypress", function(e) {
-    if (e.keyCode == 32) {
-        pressedKey();
-    }
-});
+// document.addEventListener("keypress", function(e) {
+//     if (e.keyCode == 32) {
+//         pressedKey();
+//     }
+// });
 
 document.onkeydown = function(e) {
     if (e.key == 'p') {
+        pressedKey();
+    }
+    if (e.key == ' ') {
         pressedKey();
     }
 }
@@ -258,4 +270,20 @@ function swapSides() {
     document.getElementById("finput2").value = oldS1Img;
     loadFile1()
     loadFile2()
+}
+
+function updateDefaultTime() {
+    let val = document.getElementById("checkboxSlider").checked
+    if (val) {
+        defaultTimeMin = "20";
+        defaultTimeSec = "00";
+        defaultSetMin = "03";
+        defaultSetSec = "00";
+    }
+    else {
+        defaultTimeMin = "15";
+        defaultTimeSec = "00";
+        defaultSetMin = "03";
+        defaultSetSec = "00";
+    }
 }

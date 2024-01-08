@@ -24,8 +24,9 @@ body {
     padding-top: 1vh;
 }
 
-#buttonTopRow button {
+#buttonTopRow * {
     width: 18%;
+    text-align: center;
 }
 
 .timerContainer {
