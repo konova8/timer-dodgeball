@@ -22,11 +22,8 @@
         <button onclick="resetAllTimers()">Reset All Timers</button>
         <button onclick="resetAll()">Reset All</button>
         <button onclick="setupLastSet()">Last Set</button>
-        <!--
-            <input type="file" title="img" multiple="false" accept="image/*" name="image" id="finput1" onchange="loadFile1(event)">
-            <input type="file" title="img" multiple="false" accept="image/*" name="image" id="finput2" onchange="loadFile2(event)">
-        -->
-        <select id="finput1" onchange="loadFile1(event)">
+        <button onclick="swapSides()">Swap sides</button>
+        <select id="finput1" onchange="loadFile1()">
             <option>Choose</option>
             <option>Shamrock.png</option>
             <option>OraGioBat.png</option>
@@ -39,7 +36,7 @@
             <option>AIDB.png</option>
             <option>AIDB_Quadrato.jpg</option>
         </select>
-        <select id="finput2" onchange="loadFile2(event)">
+        <select id="finput2" onchange="loadFile2()">
             <option>Choose</option>
             <option>Shamrock.png</option>
             <option>OraGioBat.png</option>
@@ -53,7 +50,7 @@
             <option>AIDB_Quadrato.jpg</option>
         </select>
     </div>
-    
+
     <div id="setTimerContainer" class="timerContainer">
         <p id="setStamp"><span id="setMinutes">03</span>:<span id="setSeconds">00</span></p>
         <div>
@@ -63,7 +60,7 @@
             <button onclick="changeSetRemain()">Change Set</button>
         </div>
     </div>
-    
+
     <div id="timeTimerContainer" class="timerContainer">
         <p id="timeStamp"><span id="timeMinutes">15</span>:<span id="timeSeconds">00</span></p>
         <div>

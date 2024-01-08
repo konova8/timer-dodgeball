@@ -7,23 +7,25 @@ let remainSet = 0;
 let timeHandlerID;
 let setHandlerID;
 
-var loadFile1 = function(event) {
+var loadFile1 = function() {
     var image = document.getElementById('team1');
-    if (event.target.value == "Choose") {
+    let val = document.getElementById("finput1").value;
+    if (val == "Choose") {
         image.src = "";
     }
     else {
-        image.src = "loghi/" + event.target.value;
+        image.src = "loghi/" + val;
     }
 };
 
-var loadFile2 = function(event) {
-	var image = document.getElementById('team2');
-    if (event.target.value == "Choose") {
+var loadFile2 = function() {
+    var image = document.getElementById('team2');
+    let val = document.getElementById("finput2").value;
+    if (val == "Choose") {
         image.src = "";
     }
     else {
-        image.src = "loghi/" + event.target.value;
+        image.src = "loghi/" + val;
     }
 };
 
@@ -121,7 +123,7 @@ function pauseSet() {
 function resetSet() {
     document.getElementById("setMinutes").innerHTML = "03";
     document.getElementById("setSeconds").innerHTML = "00";
-    
+
     document.body.style.background = "white";
 
     clearInterval(setHandlerID);
@@ -206,13 +208,13 @@ function changeSetRemain() {
     document.getElementById("setSeconds").innerHTML = input.substring(3, 5);
 }
 
-document.addEventListener("keypress", function (e) {
+document.addEventListener("keypress", function(e) {
     if (e.keyCode == 32) {
         pressedKey();
     }
 });
 
-document.onkeydown = function (e) {
+document.onkeydown = function(e) {
     if (e.key == 'p') {
         pressedKey();
     }
@@ -243,4 +245,17 @@ function setupLastSet() {
     startedSet = false;
 
     document.body.style.background = "white";
+}
+
+function swapSides() {
+    let oldS1Points = document.getElementById("pointS1").innerHTML;
+    let oldS2Points = document.getElementById("pointS2").innerHTML;
+    let oldS1Img = document.getElementById("finput1").value;
+    let oldS2Img = document.getElementById("finput2").value;
+    document.getElementById("pointS1").innerHTML = oldS2Points;
+    document.getElementById("pointS2").innerHTML = oldS1Points;
+    document.getElementById("finput1").value = oldS2Img;
+    document.getElementById("finput2").value = oldS1Img;
+    loadFile1()
+    loadFile2()
 }
