@@ -1,10 +1,24 @@
 <script lang="ts">
-    import Counter from "./components/counter/Counter.svelte"
+    import Scores from "./components/scores/Scores.svelte"
+    import { teamScores } from "./state/scores.svelte"
+
+    const resetAllScores = () => {
+        for (const teamScore of teamScores) {
+            teamScore.score = 0
+        }
+    }
 </script>
 
-<main
-    class="flex h-screen w-screen flex-col items-center justify-center gap-4 bg-black text-white"
+<div
+    class="flex h-[100dvh] w-[100dvw] flex-col-reverse items-center justify-between bg-gray-950 p-4 text-white lg:flex-col lg:p-12"
 >
-    <h1 class="text-2xl font-bold">Vite + Svelte</h1>
-    <Counter />
-</main>
+    <div
+        class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:flex"
+    >
+        <button class="btn">Start all</button>
+        <button class="btn">Pause all</button>
+        <button class="btn" onclick={resetAllScores}>Reset all</button>
+        <button class="btn">Last set</button>
+    </div>
+    <Scores />
+</div>

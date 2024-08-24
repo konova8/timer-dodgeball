@@ -25,5 +25,8 @@
         "format": "prettier --write .",
         "formatcheck": "prettier --check ."
     },
-    "type": "module"
+    "type": "module",
+    "dependencies": {
+        "clsx": "^2.1.1"
+    }
 }
