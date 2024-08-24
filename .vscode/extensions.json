@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "yoavbls.pretty-ts-errors",
+        "csstools.postcss",
+        "svelte.svelte-vscode",
+        "bradlc.vscode-tailwindcss"
+    ]
+}
