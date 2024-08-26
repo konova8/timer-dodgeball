@@ -18,6 +18,11 @@ export class TeamData {
     }
 
     changeScore = (amount: number) => () => {
+        if (this._score + amount < 0) {
+            this._score = 0
+            return
+        }
+
         this._score += amount
     }
 
