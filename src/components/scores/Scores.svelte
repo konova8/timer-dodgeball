@@ -1,19 +1,15 @@
 <script lang="ts">
+    import { teamData, teamSwap } from "./scores.state.svelte"
     import SingleScore from "./SingleScore/SingleScore.svelte"
 
-    let isSwapped = $state(false)
+    const leftTeamData = $derived(teamSwap.active ? teamData[1] : teamData[0])
+    const rightTeamData = $derived(teamSwap.active ? teamData[0] : teamData[1])
 </script>
 
 <div class="flex w-full justify-between gap-4 lg:gap-48">
-    <SingleScore scoreKey={isSwapped ? 1 : 0} teamLogoName={"goblins"} />
+    <SingleScore teamData={leftTeamData} />
     <div class="flex items-end">
-        <button class="btn" onclick={() => (isSwapped = !isSwapped)}>
-            Swap
-        </button>
+        <button class="btn" onclick={teamSwap.toggle}> Swap </button>
     </div>
-    <SingleScore
-        scoreKey={isSwapped ? 0 : 1}
-        teamLogoName={"oragiobat"}
-        invertOrder={true}
-    />
+    <SingleScore teamData={rightTeamData} invertOrder={true} />
 </div>
