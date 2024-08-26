@@ -22,8 +22,8 @@
 
 <div
     class={clsx("flex w-full items-end gap-4", {
-        "justify-end": noTeamLogo,
-        "justify-between": !noTeamLogo,
+        "lg:justify-end": noTeamLogo,
+        "lg:justify-between": !noTeamLogo,
         "flex-row-reverse": props.position === "right",
     })}
 >
