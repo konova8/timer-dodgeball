@@ -2,19 +2,27 @@ import type { Maybe } from "../../lib/types"
 import type { TeamLogo } from "./scores.helper"
 
 export class TeamData {
-    score: number = $state(0)
-    logo: Maybe<TeamLogo> = "aidb"
+    private _logo: Maybe<TeamLogo> = $state(null)
+    private _score: number = $state(0)
 
-    changeScore = (amount: number) => () => {
-        this.score += amount
+    get logo() {
+        return this._logo
     }
 
-    setLogo = (logo: TeamLogo) => {
-        this.logo = logo
+    setLogo = (logo: Maybe<TeamLogo>) => {
+        this._logo = logo
+    }
+
+    get score() {
+        return this._score
+    }
+
+    changeScore = (amount: number) => () => {
+        this._score += amount
     }
 
     resetScore = () => {
-        this.score = 0
+        this._score = 0
     }
 }
 
@@ -28,3 +36,6 @@ export class TeamSwap {
     }
 }
 export const teamSwap = new TeamSwap()
+
+export const leftTeamKey = () => (teamSwap.active ? 1 : 0)
+export const rightTeamKey = () => (teamSwap.active ? 0 : 1)
