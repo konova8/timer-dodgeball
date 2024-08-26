@@ -33,6 +33,8 @@
             alt="Team logo"
             class="hidden max-h-40 w-full max-w-40 lg:block"
         />
+    {:else}
+        <div class="hidden h-40 max-h-40 w-full max-w-40 lg:block"></div>
     {/if}
     <div class="flex flex-col items-center gap-4">
         <p class="text-2xl">
