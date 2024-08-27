@@ -59,6 +59,8 @@ export class TimerState {
         this._remaining = null
     }
 
+    pendingResume = () => this.intervalId === null && this._remaining !== 0
+
     private resetInterval = () => {
         if (!this.intervalId) {
             return

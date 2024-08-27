@@ -1,19 +1,23 @@
 export const onKeyDown = (
-    key: string,
-    cb: () => void,
-    opts?: { signal: AbortSignal },
+    keys: string | string[],
+    cb: (e: KeyboardEvent) => void,
+    signal: AbortSignal,
 ) => {
     document.addEventListener(
         "keydown",
         e => {
-            if (e.key !== key) {
+            if (
+                (Array.isArray(keys) && !keys.some(k => k === e.key)) ||
+                (typeof keys === "string" && e.key !== keys)
+            ) {
                 return
             }
 
-            cb()
+            e.preventDefault()
+            cb(e)
         },
         {
-            signal: opts?.signal,
+            signal,
         },
     )
 }

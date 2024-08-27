@@ -3,9 +3,7 @@ import type { Maybe } from "../types"
 export const onClickOut = <T extends HTMLElement>(
     getEl: () => Maybe<T>,
     cb: () => void,
-    opts?: {
-        signal?: AbortSignal
-    },
+    signal: AbortSignal,
 ) => {
     document.addEventListener(
         "click",
@@ -21,7 +19,7 @@ export const onClickOut = <T extends HTMLElement>(
             }
         },
         {
-            signal: opts?.signal,
+            signal,
         },
     )
 }

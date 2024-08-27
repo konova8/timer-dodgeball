@@ -18,15 +18,11 @@
     let timeTimerInput = $state(toTimeString(timeTimer.base))
 
     onMount(() => {
-        const listenerOpts = {
-            signal: abortController.signal,
-        }
-
-        onKeyDown("Escape", () => timeChangeModal.close(), listenerOpts)
+        onKeyDown("Escape", () => timeChangeModal.close(), abortController.signal)
         onClickOut(
             () => modalEl,
             () => timeChangeModal.close(),
-            listenerOpts,
+            abortController.signal,
         )
     })
 
