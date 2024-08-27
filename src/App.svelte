@@ -9,6 +9,16 @@
     import { setTimer, timeTimer } from "./components/timer/timer.state.svelte"
     import Timer from "./components/timer/Timer.svelte"
 
+    const startAll = () => {
+        setTimer.start()
+        timeTimer.start()
+    }
+
+    const pauseAll = () => {
+        setTimer.pause()
+        timeTimer.pause()
+    }
+
     const resetAll = () => {
         for (const data of teamData) {
             data.resetScore()
@@ -16,11 +26,6 @@
 
         setTimer.reset({ restoreBase: true })
         timeTimer.reset({ restoreBase: true })
-    }
-
-    const startAll = () => {
-        setTimer.start()
-        timeTimer.start()
     }
 
     const activateLastSet = () => {
@@ -41,7 +46,7 @@
             class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:flex"
         >
             <button class="btn" onclick={startAll}>Start all</button>
-            <button class="btn">Pause all</button>
+            <button class="btn" onclick={pauseAll}>Pause all</button>
             <button class="btn" onclick={resetAll}>Reset all</button>
             <button class="btn" onclick={activateLastSet}>Last set</button>
         </div>

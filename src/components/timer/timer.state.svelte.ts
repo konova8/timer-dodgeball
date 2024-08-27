@@ -1,3 +1,4 @@
+import { timestamp } from "../../lib/time"
 import type { Maybe } from "../../lib/types"
 
 export class TimerState {
@@ -5,6 +6,7 @@ export class TimerState {
     private _remaining: Maybe<number> = $state(null)
     private _interval: number = $state(0)
 
+    private lastIntervalTimestamp: number = $state(-1)
     private originalBase: number
     private intervalId: Maybe<ReturnType<typeof setInterval>> = null
 
@@ -31,18 +33,26 @@ export class TimerState {
             return
         }
 
+        this.lastIntervalTimestamp = timestamp()
         this.intervalId = setInterval(() => {
+            const now = timestamp()
             this.decrease()
+            this.lastIntervalTimestamp = now
         }, this._interval)
+    }
+
+    pause = () => {
+        if (!this.intervalId) {
+            return
+        }
+
+        this.decrease()
+        this.resetInterval()
     }
 
     reset = (opts?: { restoreBase: boolean }) => {
         if (opts?.restoreBase) {
             this._base = this.originalBase
-        }
-
-        if (!this.intervalId) {
-            return
         }
 
         this.resetInterval()
@@ -59,10 +69,13 @@ export class TimerState {
     }
 
     private decrease = () => {
+        const now = timestamp()
+        const actualElapsed = now - this.lastIntervalTimestamp
+
         const result =
             this._remaining === null
-                ? this._base - this._interval
-                : this._remaining - this._interval
+                ? this._base - actualElapsed
+                : this._remaining - actualElapsed
         this._remaining = result > 0 ? result : 0
 
         if (this._remaining === 0) {
