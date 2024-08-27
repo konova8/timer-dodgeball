@@ -21,13 +21,17 @@
         timeTimer.pause()
     }
 
-    const resetAll = () => {
+    const resetTimers = () => {
+        setTimer.reset({ restoreBase: true })
+        timeTimer.reset({ restoreBase: true })
+    }
+
+    const fullReset = () => {
         for (const data of teamData) {
             data.resetScore()
         }
 
-        setTimer.reset({ restoreBase: true })
-        timeTimer.reset({ restoreBase: true })
+        resetTimers()
     }
 
     const activateLastSet = () => {
@@ -51,11 +55,14 @@
     <div class="flex w-full items-center justify-between gap-8">
         <LogoChoice teamData={teamData[leftTeamKey()]} />
         <div
-            class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:flex"
+            class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:flex lg:flex-wrap"
         >
             <button class="btn-start" onclick={startAll}>Start all</button>
             <button class="btn-pause" onclick={pauseAll}>Pause all</button>
-            <button class="btn-reset" onclick={resetAll}>Reset all</button>
+            <button class="btn-reset" onclick={resetTimers}>Reset all</button>
+            <button class="btn-full-reset" onclick={fullReset}>
+                Full reset
+            </button>
             <button class="btn" onclick={activateLastSet}>Last set</button>
             <button class="btn" onclick={openTimeChangeModal}>
                 Change times
