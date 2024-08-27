@@ -9,9 +9,11 @@
         teamData,
     } from "./components/scores/scores.state.svelte"
     import Scores from "./components/scores/Scores.svelte"
-    import { setTimer, timeTimer } from "./components/timer/timer.state.svelte"
+    import { setTimer, TimerState, timeTimer } from "./components/timer/timer.state.svelte"
     import Timer from "./components/timer/Timer.svelte"
     import { onKeyDown } from "./lib/events/on-key-down"
+    import clsx from "clsx"
+    import { appData } from "./app.state.svelte"
 
     const abortController = new AbortController()
 
@@ -28,21 +30,16 @@
             }
         }, abortController.signal)
 
-        onKeyDown("s", () => {
-            if(setTimer.pendingResume()) {
-                setTimer.start()
+        const timerToggleCallback = (timer: TimerState) => () => {
+            if(timer.pendingResume()) {
+                timer.start()
             } else {
-                setTimer.pause()
+                timer.pause()
             }
-        }, abortController.signal)
+        }
 
-        onKeyDown("t", () => {
-            if(timeTimer.pendingResume()) {
-                timeTimer.start()
-            } else {
-                timeTimer.pause()
-            }
-        }, abortController.signal)
+        onKeyDown("s", timerToggleCallback(setTimer), abortController.signal)
+        onKeyDown("t", timerToggleCallback(timeTimer), abortController.signal)
     })
 
     onDestroy(() => {
@@ -88,9 +85,12 @@
 </script>
 
 <div
-    class="flex h-[100dvh] w-[100dvw] flex-col-reverse items-center justify-between bg-gray-950 p-4 text-white lg:flex-col lg:p-12"
+    class={clsx("flex h-[100dvh] w-[100dvw] transition-colors flex-col-reverse items-center justify-between p-4 text-white lg:flex-col lg:p-12", {
+        "bg-gray-950": !appData.redBackground,
+        "bg-red-800": appData.redBackground
+    })}
 >
-    <div class="flex w-full items-center justify-between gap-8">
+    <div class="flex w-full items-start justify-between gap-8">
         <LogoChoice teamData={teamData[leftTeamKey()]} />
         <div
             class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:flex lg:flex-wrap"
@@ -110,6 +110,7 @@
     </div>
     <div class="flex flex-col gap-12">
         <Timer label="Set" timer={setTimer} />
+        <div class="h-[1px] bg-white bg-opacity-90 w-96 rounded-lg"></div>
         <Timer label="Time" timer={timeTimer} />
     </div>
     <Scores />

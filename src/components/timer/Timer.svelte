@@ -24,8 +24,8 @@
 </script>
 
 <div class="flex flex-col items-center gap-4">
-    <p class="text-2xl">{props.label}</p>
-    <p class="text-5xl">
+    <p class="text-3xl">{props.label}</p>
+    <p class="text-[4rem]">
         {formatTime(props.timer.remaining ?? props.timer.base)}
     </p>
     <div class="flex items-center justify-center gap-4">

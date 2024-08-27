@@ -1,5 +1,6 @@
 import { timestamp } from "../../lib/time"
 import type { Maybe } from "../../lib/types"
+import { onTimerEnd } from "./timer.helper"
 
 export class TimerState {
     private _base: number = $state(0)
@@ -29,7 +30,7 @@ export class TimerState {
     }
 
     start = () => {
-        if (this.intervalId) {
+        if (this.intervalId || this._remaining === 0) {
             return
         }
 
@@ -81,6 +82,7 @@ export class TimerState {
         this._remaining = result > 0 ? result : 0
 
         if (this._remaining === 0) {
+            onTimerEnd()
             this.resetInterval()
         }
     }

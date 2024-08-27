@@ -56,7 +56,7 @@
         <p class="pb-4 text-lg">Format MM:SS</p>
         <form
             onsubmit={onSubmit("set")}
-            class="flex flex-col items-center justify-center gap-4 lg:flex-row"
+            class="flex flex-col lg:items-center lg:justify-center gap-4 lg:flex-row"
         >
             <p class="pr-4">Set</p>
             <input
@@ -69,7 +69,7 @@
         </form>
         <form
             onsubmit={onSubmit("time")}
-            class="flex flex-col items-center justify-center gap-4 lg:flex-row"
+            class="flex flex-col lg:items-center lg:justify-center gap-4 lg:flex-row"
         >
             <p>Time</p>
             <input
