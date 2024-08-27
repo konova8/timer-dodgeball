@@ -1,5 +1,7 @@
 <script lang="ts">
     import LogoChoice from "./components/logo-choice/LogoChoice.svelte"
+    import { timeChangeModal } from "./components/modals/time-change-modal/time-change-modal.state.svelte"
+    import TimeChangeModal from "./components/modals/time-change-modal/TimeChangeModal.svelte"
     import {
         leftTeamKey,
         rightTeamKey,
@@ -35,6 +37,12 @@
         setTimer.reset()
         timeTimer.reset()
     }
+
+    const openTimeChangeModal = (e: MouseEvent) => {
+        e.preventDefault()
+
+        timeChangeModal.open()
+    }
 </script>
 
 <div
@@ -49,6 +57,9 @@
             <button class="btn-pause" onclick={pauseAll}>Pause all</button>
             <button class="btn-reset" onclick={resetAll}>Reset all</button>
             <button class="btn" onclick={activateLastSet}>Last set</button>
+            <button class="btn" onclick={openTimeChangeModal}>
+                Change times
+            </button>
         </div>
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
@@ -58,3 +69,6 @@
     </div>
     <Scores />
 </div>
+{#if timeChangeModal.isOpen()}
+    <TimeChangeModal />
+{/if}
