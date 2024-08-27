@@ -29,8 +29,10 @@
         {formatTime(props.timer.remaining ?? props.timer.base)}
     </p>
     <div class="flex items-center justify-center gap-4">
-        <button class="btn" onclick={props.timer.start}>Start</button>
-        <button class="btn" onclick={props.timer.pause}>Pause</button>
-        <button class="btn" onclick={() => props.timer.reset()}>Reset</button>
+        <button class="btn-start" onclick={props.timer.start}>Start</button>
+        <button class="btn-pause" onclick={props.timer.pause}>Pause</button>
+        <button class="btn-reset" onclick={() => props.timer.reset()}>
+            Reset
+        </button>
     </div>
 </div>

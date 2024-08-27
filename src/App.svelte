@@ -45,9 +45,9 @@
         <div
             class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:flex"
         >
-            <button class="btn" onclick={startAll}>Start all</button>
-            <button class="btn" onclick={pauseAll}>Pause all</button>
-            <button class="btn" onclick={resetAll}>Reset all</button>
+            <button class="btn-start" onclick={startAll}>Start all</button>
+            <button class="btn-pause" onclick={pauseAll}>Pause all</button>
+            <button class="btn-reset" onclick={resetAll}>Reset all</button>
             <button class="btn" onclick={activateLastSet}>Last set</button>
         </div>
         <LogoChoice teamData={teamData[rightTeamKey()]} />
