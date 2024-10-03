@@ -18,7 +18,11 @@
     let timeTimerInput = $state(toTimeString(timeTimer.base))
 
     onMount(() => {
-        onKeyDown("Escape", () => timeChangeModal.close(), abortController.signal)
+        onKeyDown(
+            "Escape",
+            () => timeChangeModal.close(),
+            abortController.signal,
+        )
         onClickOut(
             () => modalEl,
             () => timeChangeModal.close(),
@@ -56,7 +60,7 @@
         <p class="pb-4 text-lg">Format MM:SS</p>
         <form
             onsubmit={onSubmit("set")}
-            class="flex flex-col lg:items-center lg:justify-center gap-4 lg:flex-row"
+            class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-center"
         >
             <p class="pr-4">Set</p>
             <input
@@ -69,7 +73,7 @@
         </form>
         <form
             onsubmit={onSubmit("time")}
-            class="flex flex-col lg:items-center lg:justify-center gap-4 lg:flex-row"
+            class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-center"
         >
             <p>Time</p>
             <input
