@@ -9,7 +9,11 @@
         teamData,
     } from "./components/scores/scores.state.svelte"
     import Scores from "./components/scores/Scores.svelte"
-    import { setTimer, TimerState, timeTimer } from "./components/timer/timer.state.svelte"
+    import {
+        setTimer,
+        TimerState,
+        timeTimer,
+    } from "./components/timer/timer.state.svelte"
     import Timer from "./components/timer/Timer.svelte"
     import { onKeyDown } from "./lib/events/on-key-down"
     import clsx from "clsx"
@@ -18,20 +22,24 @@
     const abortController = new AbortController()
 
     onMount(() => {
-        onKeyDown(["p", " "], () => {
-            if(timeChangeModal.isOpen()) {
-                return
-            }
+        onKeyDown(
+            ["p", " "],
+            () => {
+                if (timeChangeModal.isOpen()) {
+                    return
+                }
 
-            if(setTimer.pendingResume() || timeTimer.pendingResume()) {
-                startAll()
-            } else {
-                pauseAll()
-            }
-        }, abortController.signal)
+                if (setTimer.pendingResume() || timeTimer.pendingResume()) {
+                    startAll()
+                } else {
+                    pauseAll()
+                }
+            },
+            abortController.signal,
+        )
 
         const timerToggleCallback = (timer: TimerState) => () => {
-            if(timer.pendingResume()) {
+            if (timer.pendingResume()) {
                 timer.start()
             } else {
                 timer.pause()
@@ -85,10 +93,13 @@
 </script>
 
 <div
-    class={clsx("flex h-[100dvh] w-[100dvw] transition-colors flex-col-reverse items-center justify-between p-4 text-white lg:flex-col lg:p-12", {
-        "bg-gray-950": !appData.redBackground,
-        "bg-red-800": appData.redBackground
-    })}
+    class={clsx(
+        "flex h-[100dvh] w-[100dvw] flex-col-reverse items-center justify-between bg-white p-4 text-black transition-colors lg:flex-col lg:p-12",
+        {
+            "bg-gray-950": !appData.redBackground,
+            "bg-red-800": appData.redBackground,
+        },
+    )}
 >
     <div class="flex w-full items-start justify-between gap-8">
         <LogoChoice teamData={teamData[leftTeamKey()]} />
@@ -108,9 +119,9 @@
         </div>
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
-    <div class="flex flex-col gap-12">
+    <div class="flex flex-col">
         <Timer label="Set" timer={setTimer} />
-        <div class="h-[1px] bg-white bg-opacity-90 w-96 rounded-lg"></div>
+        <div class="h-[1px] w-96 rounded-lg bg-white bg-opacity-90"></div>
         <Timer label="Time" timer={timeTimer} />
     </div>
     <Scores />
