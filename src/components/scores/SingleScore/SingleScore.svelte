@@ -37,7 +37,9 @@
         <div class="hidden h-40 max-h-40 w-full max-w-40 lg:block"></div>
     {/if}
     <div class="flex flex-col items-center gap-4">
-        <p class="text-9xl">
+        <p
+            class="text-8xl md:text-[8rem] lg:text-[12rem] xl:max-2xl:text-[13rem]"
+        >
             {props.teamData.score}
         </p>
         <div class="flex items-center gap-2">

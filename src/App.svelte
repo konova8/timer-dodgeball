@@ -119,9 +119,8 @@
         </div>
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
-    <div class="flex flex-row justify-around sm:max-2xl:flex-col">
+    <div class="flex w-full flex-row justify-between max-2xl:flex-col">
         <Timer label="Set" timer={setTimer} />
-        <div class="h-[1px] w-64 rounded-lg bg-white bg-opacity-90"></div>
         <Timer label="Time" timer={timeTimer} />
     </div>
     <Scores />
