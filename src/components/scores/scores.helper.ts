@@ -11,6 +11,7 @@ export const teamLogos = [
     "shamrock-vecchio",
     "springout-nuovo",
     "springout-vecchio",
+    "faenza-gryphons",
     "swarm",
 ] as const
 export type TeamLogo = (typeof teamLogos)[number]
@@ -56,6 +57,10 @@ export const teamLogoData: Record<TeamLogo, TeamLogoData> = {
     "springout-vecchio": {
         imagePath: "/images/logos/springout-vecchio.png",
         logoName: "Springout Vecchio",
+    },
+    "faenza-gryphons": {
+        imagePath: "/images/logos/faenza-gryphons.jpg",
+        logoName: "Faenza Gryphons"
     },
     swarm: { imagePath: "/images/logos/swarm.png", logoName: "Swarm" },
 }
