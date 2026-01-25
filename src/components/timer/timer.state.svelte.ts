@@ -89,4 +89,4 @@ export class TimerState {
 }
 
 export const setTimer = new TimerState(3 * 60 * 1000, 41)
-export const timeTimer = new TimerState(15 * 60 * 1000, 41)
+export const timeTimer = new TimerState(20 * 60 * 1000, 41)
