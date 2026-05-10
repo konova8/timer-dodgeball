@@ -181,7 +181,7 @@
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
     <div class="flex w-full flex-row justify-between max-2xl:flex-col">
-        {#if (timeTimer.remaining ?? timeTimer.base) > (setTimer.remaining ?? setTimer.base)}
+        {#if (timeTimer.remaining ?? timeTimer.base) > (setTimer.remaining ?? setTimer.base) + 50}
             <Timer label="Set" timer={setTimer} />
         {/if}
         <Timer label="Time" timer={timeTimer} />
