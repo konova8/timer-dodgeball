@@ -177,12 +177,19 @@
             <button class="btn" onclick={openTimeChangeModal}>
                 Change times
             </button>
+            <button class="btn" onclick={appData.zoomIn}>Zoom +</button>
+            <button class="btn" onclick={appData.zoomOut}>Zoom -</button>
         </div>
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
-    <div class="flex w-full flex-row justify-between max-2xl:flex-col">
+    <div
+        class="flex w-full flex-row justify-between max-2xl:flex-col"
+        style="transform: scale({appData.zoom /
+            100}); transform-origin: center;"
+    >
         {#if (timeTimer.remaining ?? timeTimer.base) > (setTimer.remaining ?? setTimer.base) + 50}
             <Timer label="Set" timer={setTimer} />
+            <div class="mx-4 hidden h-auto w-1 bg-black lg:block"></div>
         {/if}
         <Timer label="Time" timer={timeTimer} />
     </div>

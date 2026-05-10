@@ -17,24 +17,21 @@
         const secondsMs = seconds * 1000
         const timeWithoutMinutesAndSeconds = timeWithoutMinutes - secondsMs
 
-        const ms = Math.floor(timeWithoutMinutesAndSeconds)
+        const ms = Math.floor(timeWithoutMinutesAndSeconds / 10)
 
         return [
             `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
-            `${ms.toString().padStart(3, "0")}`,
+            `${ms.toString().padStart(2, "0")}`,
         ]
     }
 </script>
 
 <div class="flex flex-col items-center">
-    <!-- <p class="text-3xl">{props.label}</p> -->
-    <p style="font-size: 0px">
-        <span
-            class="text-[6rem] md:text-[8rem] lg:text-[12rem] xl:max-2xl:text-[13rem]"
-        >
+    <p class="timer-display leading-none">
+        <span class="timer-main">
             {formatTime(props.timer.remaining ?? props.timer.base)[0]}
         </span>
-        <span class="text-[2rem]">
+        <span class="timer-ms">
             .{formatTime(props.timer.remaining ?? props.timer.base)[1]}
         </span>
     </p>
