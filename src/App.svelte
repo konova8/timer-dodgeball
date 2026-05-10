@@ -179,6 +179,9 @@
             </button>
             <button class="btn" onclick={appData.zoomIn}>Zoom +</button>
             <button class="btn" onclick={appData.zoomOut}>Zoom -</button>
+            <button class="btn" onclick={appData.togglePoints}>
+                {appData.showPoints ? "Hide points" : "Show points"}
+            </button>
         </div>
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
@@ -195,7 +198,9 @@
         {/if}
         <Timer label="Time" timer={timeTimer} />
     </div>
-    <Scores />
+    {#if appData.showPoints}
+        <Scores />
+    {/if}
 </div>
 {#if timeChangeModal.isOpen()}
     <TimeChangeModal />
