@@ -1,6 +1,8 @@
 <script lang="ts">
     import { onDestroy, onMount } from "svelte"
     import LogoChoice from "./components/logo-choice/LogoChoice.svelte"
+    import { instructionsModal } from "./components/modals/instructions-modal/instructions-modal.state.svelte"
+    import InstructionsModal from "./components/modals/instructions-modal/InstructionsModal.svelte"
     import { timeChangeModal } from "./components/modals/time-change-modal/time-change-modal.state.svelte"
     import TimeChangeModal from "./components/modals/time-change-modal/TimeChangeModal.svelte"
     import {
@@ -15,30 +17,49 @@
         timeTimer,
     } from "./components/timer/timer.state.svelte"
     import Timer from "./components/timer/Timer.svelte"
-    import { onKeyDown } from "./lib/events/on-key-down"
+    import { onKeyUp } from "./lib/events/on-key-up"
     import clsx from "clsx"
     import { appData } from "./app.state.svelte"
 
     const abortController = new AbortController()
 
-    onMount(() => {
-        onKeyDown(
-            ["p", " "],
-            () => {
-                if (timeChangeModal.isOpen()) {
-                    return
-                }
+    const isAnyModalOpen = () =>
+        timeChangeModal.isOpen() || instructionsModal.isOpen()
 
-                if (setTimer.pendingResume() || timeTimer.pendingResume()) {
-                    startAll()
-                } else {
-                    pauseAll()
+    const handleSpaceAction = () => {
+        if (isAnyModalOpen()) {
+            return
+        }
+
+        const bothRunning =
+            !setTimer.pendingResume() && !timeTimer.pendingResume()
+
+        if (bothRunning) {
+            pauseAll()
+        } else if (!timeTimer.pendingResume() && setTimer.pendingResume()) {
+            // Time timer is running, only start set timer
+            setTimer.start()
+        } else {
+            startAll()
+        }
+    }
+
+    onMount(() => {
+        // Prevent spacebar from scrolling
+        document.addEventListener(
+            "keydown",
+            e => {
+                if (e.key === " ") {
+                    e.preventDefault()
                 }
             },
-            abortController.signal,
+            { signal: abortController.signal },
         )
 
+        onKeyUp(" ", handleSpaceAction, abortController.signal)
+
         const timerToggleCallback = (timer: TimerState) => () => {
+            if (isAnyModalOpen()) return
             if (timer.pendingResume()) {
                 timer.start()
             } else {
@@ -46,8 +67,48 @@
             }
         }
 
-        onKeyDown("s", timerToggleCallback(setTimer), abortController.signal)
-        onKeyDown("t", timerToggleCallback(timeTimer), abortController.signal)
+        onKeyUp("s", timerToggleCallback(setTimer), abortController.signal)
+        onKeyUp("t", timerToggleCallback(timeTimer), abortController.signal)
+
+        onKeyUp(
+            "ArrowLeft",
+            () => {
+                if (isAnyModalOpen()) return
+                teamData[leftTeamKey()].changeScore(1)()
+            },
+            abortController.signal,
+        )
+
+        onKeyUp(
+            "ArrowRight",
+            () => {
+                if (isAnyModalOpen()) return
+                teamData[rightTeamKey()].changeScore(1)()
+            },
+            abortController.signal,
+        )
+
+        // Touch support for smartphone (touchend = release)
+        document.addEventListener(
+            "touchend",
+            (e: TouchEvent) => {
+                if (isAnyModalOpen()) return
+
+                const target = e.target as HTMLElement
+                // Ignore touches on buttons, inputs, and interactive elements
+                if (
+                    target.closest(
+                        "button, input, select, textarea, a, [role='button']",
+                    )
+                ) {
+                    return
+                }
+
+                e.preventDefault()
+                handleSpaceAction()
+            },
+            { signal: abortController.signal },
+        )
     })
 
     onDestroy(() => {
@@ -94,7 +155,7 @@
 
 <div
     class={clsx(
-        "flex h-[100dvh] w-[100dvw] flex-col-reverse items-center justify-between bg-white p-4 text-black transition-colors lg:flex-col lg:p-12",
+        "flex h-[100dvh] w-[100dvw] select-none flex-col-reverse items-center justify-between bg-white p-4 text-black transition-colors lg:select-auto lg:flex-col lg:p-12",
         {
             "bg-gray-950": !appData.redBackground,
             "bg-red-800": appData.redBackground,
@@ -127,4 +188,7 @@
 </div>
 {#if timeChangeModal.isOpen()}
     <TimeChangeModal />
+{/if}
+{#if instructionsModal.isOpen()}
+    <InstructionsModal />
 {/if}
