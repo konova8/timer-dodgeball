@@ -35,7 +35,7 @@
         if (!containerEl || !mainSpan) return
 
         const availableWidth = containerEl.clientWidth - 4
-        const availableHeight = containerEl.clientHeight - 64 // buttons (48px) + gap (16px)
+        const availableHeight = containerEl.clientHeight - 120 // buttons (48) + gap (24) + padding top/bottom (48)
 
         if (availableWidth <= 0 || availableHeight <= 0) return
 
@@ -86,7 +86,7 @@
 </script>
 
 <div
-    class="flex w-full flex-1 flex-col items-center justify-center gap-4"
+    class="flex w-full flex-1 flex-col items-center justify-center gap-6 py-6"
     bind:this={containerEl}
 >
     <div class="flex items-baseline whitespace-nowrap leading-none">
