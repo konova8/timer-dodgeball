@@ -2,13 +2,16 @@ import { appData } from "../../app.state.svelte"
 import type { Maybe } from "../../lib/types"
 
 export const onTimerEnd = () => {
-    playWhistle()
+    playAlarm()
     flashBackground()
 }
 
-const playWhistle = () => {
-    const whistle = new Audio("sounds/alarm.mp3")
-    whistle.play()
+const alarm = new Audio("sounds/alarm.mp3")
+alarm.preload = "auto"
+
+const playAlarm = () => {
+    alarm.currentTime = 0
+    alarm.play()
 }
 
 let backgroundTimeout: Maybe<number> = null
