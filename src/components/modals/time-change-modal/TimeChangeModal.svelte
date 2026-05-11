@@ -51,7 +51,7 @@
 </script>
 
 <div
-    class="fixed inset-0 flex h-[100dvh] w-[100dvw] items-center justify-center bg-black bg-opacity-50 text-white"
+    class="fixed inset-0 z-50 flex h-[100dvh] w-[100dvw] items-center justify-center bg-black bg-opacity-50 text-white"
 >
     <div
         bind:this={modalEl}
