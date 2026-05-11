@@ -17,7 +17,7 @@
 >
     <div class="flex flex-col items-center gap-4">
         <p
-            class="text-8xl md:text-[8rem] lg:text-[12rem] xl:max-2xl:text-[13rem]"
+            class="font-timer text-8xl md:text-[8rem] lg:text-[12rem] xl:max-2xl:text-[13rem]"
             style="font-variant-numeric: tabular-nums;"
         >
             {props.teamData.score.toString().padStart(2, "0")}
