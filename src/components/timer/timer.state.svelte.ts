@@ -76,6 +76,10 @@ export class TimerState {
         } else {
             this._base = Math.max(0, this._base + deltaMs)
         }
+
+        if (this._remaining === 0) {
+            onTimerEnd()
+        }
     }
 
     private resetInterval = () => {
