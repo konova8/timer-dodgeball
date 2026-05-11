@@ -16,9 +16,5 @@
     "files.associations": {
         "*.css": "postcss"
     },
-    "kiroAgent.trustedCommands": [
-        "npm run typecheck",
-        "npm run build",
-        "npx prettier *"
-    ]
+    "kiroAgent.trustedCommands": ["npx prettier *", "npm run *"]
 }
