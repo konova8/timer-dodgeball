@@ -246,7 +246,7 @@
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
     <div
-        class="relative z-10 flex w-full flex-1 flex-col items-center overflow-hidden"
+        class="relative z-10 flex w-full flex-1 flex-col items-center justify-center overflow-hidden"
     >
         {#if (timeTimer.remaining ?? timeTimer.base) > (setTimer.remaining ?? setTimer.base) + 50}
             <Timer timer={setTimer} />
