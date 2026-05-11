@@ -87,14 +87,14 @@
     <div class="flex flex-1 items-end whitespace-nowrap leading-none">
         <span
             bind:this={mainSpan}
-            class="font-mono"
+            class="font-timer"
             style="font-size: {fontSize}px; font-variant-numeric: tabular-nums;"
         >
             {formatTime(props.timer.remaining ?? props.timer.base)[0]}
         </span>
         <span
             bind:this={msSpan}
-            class="font-mono"
+            class="font-timer"
             style="font-size: {Math.floor(
                 fontSize * 0.35,
             )}px; font-variant-numeric: tabular-nums;"
