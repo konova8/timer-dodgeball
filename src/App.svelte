@@ -94,12 +94,11 @@
             return
         }
 
-        const bothRunning =
-            !setTimer.pendingResume() && !timeTimer.pendingResume()
+        const bothRunning = setTimer.isRunning() && timeTimer.isRunning()
 
         if (bothRunning) {
             pauseAll()
-        } else if (!timeTimer.pendingResume() && setTimer.pendingResume()) {
+        } else if (timeTimer.isRunning() && !setTimer.isRunning()) {
             // Time timer is running, only start set timer
             setTimer.start()
         } else {
