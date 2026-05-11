@@ -245,9 +245,7 @@
     >
         {#if (timeTimer.remaining ?? timeTimer.base) > (setTimer.remaining ?? setTimer.base) + 50}
             <Timer label="Set" timer={setTimer} />
-            <div
-                class="mx-4 hidden w-1 scale-y-110 self-stretch bg-black lg:block"
-            ></div>
+            <div class="hidden w-8 shrink-0 lg:block"></div>
         {/if}
         <Timer label="Time" timer={timeTimer} />
     </div>
