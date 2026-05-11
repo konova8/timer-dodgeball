@@ -10,8 +10,9 @@
     const props: TimerProps = $props()
 
     let containerEl: HTMLDivElement | undefined = $state(undefined)
-    let textEl: HTMLParagraphElement | undefined = $state(undefined)
-    let fontSize: number = $state(16)
+    let mainSpan: HTMLSpanElement | undefined = $state(undefined)
+    let msSpan: HTMLSpanElement | undefined = $state(undefined)
+    let fontSize: number = $state(64)
 
     const formatTime = (timeMs: number) => {
         const minutes = Math.floor(timeMs / 1000 / 60)
@@ -31,27 +32,26 @@
     }
 
     const computeFontSize = () => {
-        if (!containerEl || !textEl) return
+        if (!containerEl || !mainSpan) return
 
-        const containerWidth = containerEl.clientWidth
-        const containerHeight = containerEl.clientHeight - 48 // reserve space for buttons
+        const availableWidth = containerEl.clientWidth
+        const availableHeight = containerEl.clientHeight - 48
 
-        if (containerWidth === 0 || containerHeight === 0) return
+        if (availableWidth <= 0 || availableHeight <= 0) return
 
-        // Binary search for the largest font size that fits
         let low = 16
-        let high = 800
+        let high = 600
         let best = low
 
         while (low <= high) {
             const mid = Math.floor((low + high) / 2)
-            textEl.style.fontSize = `${mid}px`
+            mainSpan.style.fontSize = `${mid}px`
+            if (msSpan) msSpan.style.fontSize = `${Math.floor(mid * 0.35)}px`
 
-            const fits =
-                textEl.scrollWidth <= containerWidth &&
-                textEl.scrollHeight <= containerHeight
+            const textWidth = mainSpan.offsetWidth + (msSpan?.offsetWidth ?? 0)
+            const textHeight = mainSpan.offsetHeight
 
-            if (fits) {
+            if (textWidth <= availableWidth && textHeight <= availableHeight) {
                 best = mid
                 low = mid + 1
             } else {
@@ -60,7 +60,6 @@
         }
 
         fontSize = best
-        textEl.style.fontSize = `${best}px`
     }
 
     onMount(() => {
@@ -70,35 +69,40 @@
 
         if (containerEl) {
             observer.observe(containerEl)
+            computeFontSize()
         }
 
         return () => observer.disconnect()
     })
 
     $effect(() => {
-        // Re-trigger on timer value change (access reactive value)
         void (props.timer.remaining ?? props.timer.base)
         computeFontSize()
     })
 </script>
 
-<div class="flex h-full w-full flex-col items-center" bind:this={containerEl}>
-    <p
-        class="timer-autosize flex flex-1 items-center whitespace-nowrap leading-none"
-        bind:this={textEl}
-        style="font-size: {fontSize}px;"
-    >
-        <span class="font-mono" style="font-variant-numeric: tabular-nums;">
+<div
+    class="flex h-full w-full flex-col items-center justify-center"
+    bind:this={containerEl}
+>
+    <div class="flex flex-1 items-center whitespace-nowrap leading-none">
+        <span
+            bind:this={mainSpan}
+            class="font-mono"
+            style="font-size: {fontSize}px; font-variant-numeric: tabular-nums;"
+        >
             {formatTime(props.timer.remaining ?? props.timer.base)[0]}
         </span>
         <span
+            bind:this={msSpan}
             class="font-mono"
-            style="font-size: {fontSize *
-                0.35}px; font-variant-numeric: tabular-nums;"
+            style="font-size: {Math.floor(
+                fontSize * 0.35,
+            )}px; font-variant-numeric: tabular-nums;"
         >
             .{formatTime(props.timer.remaining ?? props.timer.base)[1]}
         </span>
-    </p>
+    </div>
     <div class="flex shrink-0 items-center justify-center gap-4">
         <button class="btn-start" onclick={props.timer.start}>▶</button>
         <button class="btn-pause" onclick={props.timer.pause}>⏸</button>
