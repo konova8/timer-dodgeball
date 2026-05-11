@@ -22,14 +22,15 @@
 
     <!-- Scores (zoomable, above logos) -->
     <div
-        class="relative z-10 flex w-full items-end justify-center"
+        class="relative z-10 flex w-full items-end justify-between lg:justify-center"
         style="transform: scale({appData.scoresZoom /
-            100}); transform-origin: center bottom; gap: {Math.max(
+            100}); transform-origin: center bottom; --score-gap: {Math.max(
             0,
             20 - (appData.scoresZoom - 100) * 0.5,
         )}rem;"
     >
         <SingleScore teamData={teamData[leftTeamKey()]} position={"left"} />
+        <div class="hidden lg:block" style="width: var(--score-gap);"></div>
         <SingleScore teamData={teamData[rightTeamKey()]} position={"right"} />
     </div>
 
