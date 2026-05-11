@@ -34,7 +34,7 @@
     const computeFontSize = () => {
         if (!containerEl || !mainSpan) return
 
-        const availableWidth = containerEl.clientWidth
+        const availableWidth = containerEl.clientWidth - 4
         const availableHeight = containerEl.clientHeight - 48
 
         if (availableWidth <= 0 || availableHeight <= 0) return
@@ -82,7 +82,7 @@
 </script>
 
 <div
-    class="flex h-full w-full flex-col items-center justify-center"
+    class="flex h-full min-w-0 flex-1 flex-col items-center justify-center"
     bind:this={containerEl}
 >
     <div class="flex flex-1 items-center whitespace-nowrap leading-none">
