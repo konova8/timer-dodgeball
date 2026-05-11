@@ -14,6 +14,7 @@ export type PersistedState = {
     scoresZoom: number
     logoZoom: number
     darkTheme: boolean
+    showDecimals: boolean
     instructionsSeen: boolean
 }
 

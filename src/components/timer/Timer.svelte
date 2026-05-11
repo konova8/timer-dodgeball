@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte"
+    import { appData } from "../../app.state.svelte"
     import type { TimerState } from "./timer.state.svelte"
 
     type TimerProps = {
@@ -79,6 +80,7 @@
 
     $effect(() => {
         void (props.timer.remaining ?? props.timer.base)
+        void appData.showDecimals
         computeFontSize()
     })
 </script>
@@ -95,15 +97,17 @@
         >
             {formatTime(props.timer.remaining ?? props.timer.base)[0]}
         </span>
-        <span
-            bind:this={msSpan}
-            class="font-timer"
-            style="font-size: {Math.floor(
-                fontSize * 0.35,
-            )}px; font-variant-numeric: tabular-nums;"
-        >
-            .{formatTime(props.timer.remaining ?? props.timer.base)[1]}
-        </span>
+        {#if appData.showDecimals}
+            <span
+                bind:this={msSpan}
+                class="font-timer"
+                style="font-size: {Math.floor(
+                    fontSize * 0.35,
+                )}px; font-variant-numeric: tabular-nums;"
+            >
+                .{formatTime(props.timer.remaining ?? props.timer.base)[1]}
+            </span>
+        {/if}
     </div>
     <div class="flex shrink-0 items-center justify-center gap-4">
         <button class="btn-start" onclick={props.timer.start}>▶</button>

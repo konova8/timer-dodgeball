@@ -54,6 +54,9 @@
         if (persisted.darkTheme !== undefined) {
             appData.setDarkTheme(persisted.darkTheme)
         }
+        if (persisted.showDecimals !== undefined) {
+            appData.setShowDecimals(persisted.showDecimals)
+        }
     }
 
     // Auto-save state on changes
@@ -72,6 +75,7 @@
             scoresZoom: appData.scoresZoom,
             logoZoom: appData.logoZoom,
             darkTheme: appData.darkTheme,
+            showDecimals: appData.showDecimals,
             instructionsSeen: true,
         })
     })
@@ -263,6 +267,11 @@
                         <button class="btn" onclick={instructionsModal.open}>
                             Show instructions
                         </button>
+                        <button class="btn" onclick={appData.toggleDecimals}>
+                            {appData.showDecimals
+                                ? "Hide decimals"
+                                : "Show decimals"}
+                        </button>
                         <button class="btn" onclick={appData.toggleTheme}>
                             {appData.darkTheme ? "Light theme" : "Dark theme"}
                         </button>
@@ -312,6 +321,11 @@
                         </button>
                         <button class="btn" onclick={instructionsModal.open}>
                             Show instructions
+                        </button>
+                        <button class="btn" onclick={appData.toggleDecimals}>
+                            {appData.showDecimals
+                                ? "Hide decimals"
+                                : "Show decimals"}
                         </button>
                         <button class="btn" onclick={appData.toggleTheme}>
                             {appData.darkTheme ? "Light theme" : "Dark theme"}

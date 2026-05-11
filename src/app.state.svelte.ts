@@ -4,6 +4,7 @@ class AppData {
     private _scoresZoom: number = $state(100)
     private _logoZoom: number = $state(100)
     private _darkTheme: boolean = $state(false)
+    private _showDecimals: boolean = $state(true)
 
     get showPoints() {
         return this._showPoints
@@ -59,6 +60,18 @@ class AppData {
 
     toggleTheme = () => {
         this._darkTheme = !this._darkTheme
+    }
+
+    get showDecimals() {
+        return this._showDecimals
+    }
+
+    setShowDecimals = (value: boolean) => {
+        this._showDecimals = value
+    }
+
+    toggleDecimals = () => {
+        this._showDecimals = !this._showDecimals
     }
 }
 
