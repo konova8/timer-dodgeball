@@ -89,7 +89,7 @@
     class="flex w-full flex-1 flex-col items-center justify-center"
     bind:this={containerEl}
 >
-    <div class="flex items-baseline whitespace-nowrap leading-none">
+    <div class="flex items-baseline whitespace-nowrap pb-4 leading-none">
         <span
             bind:this={mainSpan}
             class="font-timer"
