@@ -4,7 +4,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                timer: ["Orbitron", "monospace"],
+                timer: ["Audiowide", "monospace"],
             },
         },
     },
