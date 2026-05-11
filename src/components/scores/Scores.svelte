@@ -22,9 +22,12 @@
 
     <!-- Scores (zoomable, above logos) -->
     <div
-        class="relative z-10 flex w-full items-end justify-between"
+        class="relative z-10 flex w-full items-end justify-center"
         style="transform: scale({appData.scoresZoom /
-            100}); transform-origin: center bottom;"
+            100}); transform-origin: center bottom; gap: {Math.max(
+            0,
+            20 - (appData.scoresZoom - 100) * 0.5,
+        )}rem;"
     >
         <SingleScore teamData={teamData[leftTeamKey()]} position={"left"} />
         <SingleScore teamData={teamData[rightTeamKey()]} position={"right"} />
