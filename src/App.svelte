@@ -186,9 +186,9 @@
         <div
             class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:hidden"
         >
-            <button class="btn-start" onclick={startAll}>Start all</button>
-            <button class="btn-pause" onclick={pauseAll}>Pause all</button>
-            <button class="btn-reset" onclick={resetTimers}>Reset all</button>
+            <button class="btn-start" onclick={startAll}>▶ All</button>
+            <button class="btn-pause" onclick={pauseAll}>⏸ All</button>
+            <button class="btn-reset" onclick={resetTimers}>⏹ All</button>
             <button class="btn" onclick={activateLastSet}>Last set</button>
             <button class="btn" onclick={openTimeChangeModal}>
                 Change times
@@ -203,9 +203,9 @@
         <div
             class="hidden w-full items-center justify-center gap-4 whitespace-nowrap lg:flex"
         >
-            <button class="btn-start" onclick={startAll}>Start all</button>
-            <button class="btn-pause" onclick={pauseAll}>Pause all</button>
-            <button class="btn-reset" onclick={resetTimers}>Reset all</button>
+            <button class="btn-start" onclick={startAll}>▶ All</button>
+            <button class="btn-pause" onclick={pauseAll}>⏸ All</button>
+            <button class="btn-reset" onclick={resetTimers}>⏹ All</button>
             <button class="btn" onclick={appData.togglePoints}>
                 {appData.showPoints ? "Hide points" : "Show points"}
             </button>

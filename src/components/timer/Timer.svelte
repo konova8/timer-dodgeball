@@ -36,10 +36,10 @@
         </span>
     </p>
     <div class="flex items-center justify-center gap-4">
-        <button class="btn-start" onclick={props.timer.start}>Start</button>
-        <button class="btn-pause" onclick={props.timer.pause}>Pause</button>
+        <button class="btn-start" onclick={props.timer.start}>▶</button>
+        <button class="btn-pause" onclick={props.timer.pause}>⏸</button>
         <button class="btn-reset" onclick={() => props.timer.reset()}>
-            Reset
+            ⏹
         </button>
     </div>
 </div>
