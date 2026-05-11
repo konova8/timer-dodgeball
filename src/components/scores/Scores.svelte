@@ -26,7 +26,9 @@
         style="transform: scale({appData.scoresZoom /
             100}); transform-origin: center bottom; --score-gap: {Math.max(
             0,
-            20 - (appData.scoresZoom - 100) * 0.5,
+            20 -
+                (appData.scoresZoom - 100) * 0.5 -
+                (appData.logoZoom - 100) * 0.15,
         )}rem;"
     >
         <SingleScore teamData={teamData[leftTeamKey()]} position={"left"} />
