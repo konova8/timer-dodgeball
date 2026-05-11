@@ -3,6 +3,7 @@ class AppData {
     private _showPoints: boolean = $state(true)
     private _scoresZoom: number = $state(100)
     private _logoZoom: number = $state(100)
+    private _darkTheme: boolean = $state(false)
 
     get showPoints() {
         return this._showPoints
@@ -46,6 +47,18 @@ class AppData {
 
     logoZoomOut = () => {
         this._logoZoom = Math.max(this._logoZoom - 10, 50)
+    }
+
+    get darkTheme() {
+        return this._darkTheme
+    }
+
+    setDarkTheme = (value: boolean) => {
+        this._darkTheme = value
+    }
+
+    toggleTheme = () => {
+        this._darkTheme = !this._darkTheme
     }
 }
 

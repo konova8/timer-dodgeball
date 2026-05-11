@@ -51,6 +51,9 @@
         appData.setShowPoints(persisted.showPoints)
         appData.setScoresZoom(persisted.scoresZoom)
         appData.setLogoZoom(persisted.logoZoom)
+        if (persisted.darkTheme !== undefined) {
+            appData.setDarkTheme(persisted.darkTheme)
+        }
     }
 
     // Auto-save state on changes
@@ -68,6 +71,7 @@
             showPoints: appData.showPoints,
             scoresZoom: appData.scoresZoom,
             logoZoom: appData.logoZoom,
+            darkTheme: appData.darkTheme,
             instructionsSeen: true,
         })
     })
@@ -217,10 +221,11 @@
 
 <div
     class={clsx(
-        "flex h-[100dvh] w-[100dvw] select-none flex-col-reverse items-center justify-between bg-white p-4 text-black transition-colors lg:flex-col lg:p-12",
+        "flex h-[100dvh] w-[100dvw] select-none flex-col-reverse items-center justify-between p-4 transition-colors lg:flex-col lg:p-12",
         {
-            "bg-gray-950": !appData.redBackground,
-            "bg-red-800": appData.redBackground,
+            "bg-red-800 text-white": appData.redBackground,
+            "bg-black text-white": !appData.redBackground && appData.darkTheme,
+            "bg-white text-black": !appData.redBackground && !appData.darkTheme,
         },
     )}
 >
@@ -281,6 +286,9 @@
                         </button>
                         <button class="btn" onclick={instructionsModal.open}>
                             Show instructions
+                        </button>
+                        <button class="btn" onclick={appData.toggleTheme}>
+                            {appData.darkTheme ? "Light theme" : "Dark theme"}
                         </button>
                         <button class="btn-full-reset" onclick={fullReset}>
                             Full reset
