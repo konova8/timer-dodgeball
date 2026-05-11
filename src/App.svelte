@@ -23,6 +23,8 @@
 
     const abortController = new AbortController()
 
+    let menuOpen = $state(false)
+
     const isAnyModalOpen = () =>
         timeChangeModal.isOpen() || instructionsModal.isOpen()
 
@@ -109,6 +111,18 @@
             },
             { signal: abortController.signal },
         )
+
+        // Close menu on click outside
+        document.addEventListener(
+            "click",
+            (e: MouseEvent) => {
+                const target = e.target as HTMLElement
+                if (!target.closest(".menu-container")) {
+                    menuOpen = false
+                }
+            },
+            { signal: abortController.signal },
+        )
     })
 
     onDestroy(() => {
@@ -151,6 +165,10 @@
 
         timeChangeModal.open()
     }
+
+    const toggleMenu = () => {
+        menuOpen = !menuOpen
+    }
 </script>
 
 <div
@@ -164,24 +182,57 @@
 >
     <div class="flex w-full items-start justify-between gap-8">
         <LogoChoice teamData={teamData[leftTeamKey()]} />
+        <!-- Mobile: grid layout -->
         <div
-            class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:flex lg:flex-wrap"
+            class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:hidden"
         >
             <button class="btn-start" onclick={startAll}>Start all</button>
             <button class="btn-pause" onclick={pauseAll}>Pause all</button>
             <button class="btn-reset" onclick={resetTimers}>Reset all</button>
-            <button class="btn-full-reset" onclick={fullReset}>
-                Full reset
-            </button>
             <button class="btn" onclick={activateLastSet}>Last set</button>
             <button class="btn" onclick={openTimeChangeModal}>
                 Change times
             </button>
-            <button class="btn" onclick={appData.zoomIn}>Zoom +</button>
-            <button class="btn" onclick={appData.zoomOut}>Zoom -</button>
             <button class="btn" onclick={appData.togglePoints}>
                 {appData.showPoints ? "Hide points" : "Show points"}
             </button>
+            <button class="btn" onclick={appData.zoomIn}>Zoom +</button>
+            <button class="btn" onclick={appData.zoomOut}>Zoom -</button>
+        </div>
+        <!-- Desktop: single row with menu -->
+        <div class="hidden w-full items-center justify-center gap-4 lg:flex">
+            <button class="btn-start" onclick={startAll}>Start all</button>
+            <button class="btn-pause" onclick={pauseAll}>Pause all</button>
+            <button class="btn-reset" onclick={resetTimers}>Reset all</button>
+            <button class="btn" onclick={appData.togglePoints}>
+                {appData.showPoints ? "Hide points" : "Show points"}
+            </button>
+            <button class="btn" onclick={appData.zoomIn}>Zoom +</button>
+            <button class="btn" onclick={appData.zoomOut}>Zoom -</button>
+            <div class="menu-container relative">
+                <button class="btn" onclick={toggleMenu}>More ▾</button>
+                {#if menuOpen}
+                    <div
+                        class="absolute right-0 top-full z-40 mt-2 flex min-w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl"
+                    >
+                        <button class="btn" onclick={activateLastSet}>
+                            Last set
+                        </button>
+                        <button class="btn" onclick={openTimeChangeModal}>
+                            Change times
+                        </button>
+                        <button class="btn" onclick={appData.scoresZoomIn}>
+                            Scores zoom +
+                        </button>
+                        <button class="btn" onclick={appData.scoresZoomOut}>
+                            Scores zoom -
+                        </button>
+                        <button class="btn-full-reset" onclick={fullReset}>
+                            Full reset
+                        </button>
+                    </div>
+                {/if}
+            </div>
         </div>
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
