@@ -84,7 +84,7 @@
     class="flex w-full flex-1 flex-col items-center justify-center"
     bind:this={containerEl}
 >
-    <div class="flex flex-1 items-center whitespace-nowrap leading-none">
+    <div class="flex flex-1 items-end whitespace-nowrap leading-none">
         <span
             bind:this={mainSpan}
             class="font-mono"
