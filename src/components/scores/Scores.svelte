@@ -18,14 +18,10 @@
         {/if}
     </div>
 
-    <!-- Scores (zoomable, above logos) -->
+    <!-- Scores (above logos) -->
     <div
         class="relative z-10 flex min-w-0 flex-1 items-end justify-between lg:justify-center"
-        style="transform: scale({appData.scoresZoom /
-            100}); transform-origin: center bottom; gap: {Math.max(
-            1,
-            4 - (appData.scoresZoom - 100) * 0.03,
-        )}rem;"
+        style="gap: {Math.max(1, 4 - (appData.scoresZoom - 100) * 0.03)}rem;"
     >
         <SingleScore teamData={teamData[leftTeamKey()]} position={"left"} />
         <SingleScore teamData={teamData[rightTeamKey()]} position={"right"} />

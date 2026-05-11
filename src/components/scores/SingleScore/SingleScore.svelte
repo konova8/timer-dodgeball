@@ -1,5 +1,6 @@
 <script lang="ts">
     import clsx from "clsx"
+    import { appData } from "../../../app.state.svelte"
     import { TeamData } from "../scores.state.svelte"
 
     type SingleScoreProps = {
@@ -18,7 +19,8 @@
     <div class="flex flex-col items-center gap-4">
         <p
             class="font-timer text-8xl md:text-[8rem] lg:text-[12rem] xl:max-2xl:text-[13rem]"
-            style="font-variant-numeric: tabular-nums;"
+            style="font-variant-numeric: tabular-nums; transform: scale({appData.scoresZoom /
+                100}); transform-origin: center bottom;"
         >
             {props.teamData.score.toString().padStart(2, "0")}
         </p>
