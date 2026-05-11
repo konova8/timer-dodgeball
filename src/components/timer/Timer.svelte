@@ -35,7 +35,7 @@
         if (!containerEl || !mainSpan) return
 
         const availableWidth = containerEl.clientWidth - 4
-        const availableHeight = containerEl.clientHeight - 48
+        const availableHeight = containerEl.clientHeight - 64 // buttons (48px) + gap (16px)
 
         if (availableWidth <= 0 || availableHeight <= 0) return
 
@@ -86,10 +86,10 @@
 </script>
 
 <div
-    class="flex w-full flex-1 flex-col items-center justify-center"
+    class="flex w-full flex-1 flex-col items-center justify-center gap-4"
     bind:this={containerEl}
 >
-    <div class="flex items-baseline whitespace-nowrap pb-4 leading-none">
+    <div class="flex items-baseline whitespace-nowrap leading-none">
         <span
             bind:this={mainSpan}
             class="font-timer"
