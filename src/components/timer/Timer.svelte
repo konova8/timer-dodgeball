@@ -72,7 +72,7 @@
             computeFontSize()
         }
 
-        // Recalculate after fonts are loaded (Orbitron has different glyph widths)
+        // Recalculate after fonts are loaded (Audiowide has different glyph widths)
         document.fonts.ready.then(() => computeFontSize())
 
         return () => observer.disconnect()
