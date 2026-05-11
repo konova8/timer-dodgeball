@@ -241,13 +241,12 @@
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
     <div
-        class="relative z-10 flex w-full flex-1 flex-row items-center justify-between overflow-hidden max-2xl:flex-col"
+        class="relative z-10 flex w-full flex-1 flex-col items-center overflow-hidden"
     >
         {#if (timeTimer.remaining ?? timeTimer.base) > (setTimer.remaining ?? setTimer.base) + 50}
-            <Timer label="Set" timer={setTimer} />
-            <div class="hidden w-8 shrink-0 lg:block"></div>
+            <Timer timer={setTimer} />
         {/if}
-        <Timer label="Time" timer={timeTimer} />
+        <Timer timer={timeTimer} />
     </div>
     {#if appData.showPoints}
         <Scores />

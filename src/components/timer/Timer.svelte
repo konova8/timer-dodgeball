@@ -3,7 +3,6 @@
     import type { TimerState } from "./timer.state.svelte"
 
     type TimerProps = {
-        label: string
         timer: TimerState
     }
 
@@ -82,7 +81,7 @@
 </script>
 
 <div
-    class="flex h-full w-full min-w-0 flex-1 flex-col items-center justify-center"
+    class="flex w-full flex-1 flex-col items-center justify-center"
     bind:this={containerEl}
 >
     <div class="flex flex-1 items-center whitespace-nowrap leading-none">
