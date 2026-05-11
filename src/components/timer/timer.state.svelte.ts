@@ -9,7 +9,7 @@ export class TimerState {
 
     private lastIntervalTimestamp: number = $state(-1)
     private originalBase: number
-    private intervalId: Maybe<ReturnType<typeof setInterval>> = null
+    private intervalId: Maybe<ReturnType<typeof setInterval>> = $state(null)
 
     constructor(base: number, interval: number) {
         this._base = base
