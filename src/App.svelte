@@ -198,6 +198,8 @@
         }
 
         resetTimers()
+        appData.setScoresZoom(100)
+        appData.setLogoZoom(100)
     }
 
     const activateLastSet = () => {
