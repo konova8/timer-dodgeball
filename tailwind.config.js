@@ -4,7 +4,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                timer: ["Audiowide", "monospace"],
+                timer: ["DSEG7Classic", "monospace"],
             },
         },
     },
