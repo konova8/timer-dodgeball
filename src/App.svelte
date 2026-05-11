@@ -285,7 +285,7 @@
                             {appData.darkTheme ? "Light theme" : "Dark theme"}
                         </button>
                         <button class="btn" onclick={instructionsModal.open}>
-                            Show instructions
+                            Instructions
                         </button>
                         <button class="btn-full-reset" onclick={fullReset}>
                             Full reset
