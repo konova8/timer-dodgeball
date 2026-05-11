@@ -246,6 +246,30 @@
             <button class="btn" onclick={appData.togglePoints}>
                 {appData.showPoints ? "Hide points" : "Show points"}
             </button>
+            <div class="menu-container relative">
+                <button class="btn w-full" onclick={toggleMenu}>More ▾</button>
+                {#if menuOpen}
+                    <div
+                        class="absolute left-0 top-full z-40 mt-2 flex min-w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl"
+                    >
+                        <button class="btn" onclick={appData.scoresZoomIn}>
+                            Scores zoom +
+                        </button>
+                        <button class="btn" onclick={appData.scoresZoomOut}>
+                            Scores zoom -
+                        </button>
+                        <button class="btn" onclick={instructionsModal.open}>
+                            Show instructions
+                        </button>
+                        <button class="btn" onclick={appData.toggleTheme}>
+                            {appData.darkTheme ? "Light theme" : "Dark theme"}
+                        </button>
+                        <button class="btn-full-reset" onclick={fullReset}>
+                            Full reset
+                        </button>
+                    </div>
+                {/if}
+            </div>
         </div>
         <!-- Desktop: single row with menu -->
         <div
