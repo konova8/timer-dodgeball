@@ -1,5 +1,7 @@
 <script lang="ts">
+    import clsx from "clsx"
     import { onDestroy, onMount } from "svelte"
+    import { appData } from "./app.state.svelte"
     import LogoChoice from "./components/logo-choice/LogoChoice.svelte"
     import { instructionsModal } from "./components/modals/instructions-modal/instructions-modal.state.svelte"
     import InstructionsModal from "./components/modals/instructions-modal/InstructionsModal.svelte"
@@ -9,6 +11,7 @@
         leftTeamKey,
         rightTeamKey,
         teamData,
+        teamSwap,
     } from "./components/scores/scores.state.svelte"
     import Scores from "./components/scores/Scores.svelte"
     import {
@@ -18,8 +21,6 @@
     } from "./components/timer/timer.state.svelte"
     import Timer from "./components/timer/Timer.svelte"
     import { onKeyUp } from "./lib/events/on-key-up"
-    import clsx from "clsx"
-    import { appData } from "./app.state.svelte"
 
     const abortController = new AbortController()
 
@@ -189,6 +190,7 @@
             <button class="btn-start" onclick={startAll}>▶ All</button>
             <button class="btn-pause" onclick={pauseAll}>⏸ All</button>
             <button class="btn-reset" onclick={resetTimers}>⏹ All</button>
+            <button class="btn" onclick={teamSwap.toggle}>Swap teams</button>
             <button class="btn" onclick={activateLastSet}>Last set</button>
             <button class="btn" onclick={openTimeChangeModal}>
                 Change times
@@ -213,6 +215,9 @@
                     <div
                         class="absolute right-0 top-full z-40 mt-2 flex min-w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl"
                     >
+                        <button class="btn" onclick={teamSwap.toggle}>
+                            Swap teams
+                        </button>
                         <button class="btn" onclick={activateLastSet}>
                             Last set
                         </button>
