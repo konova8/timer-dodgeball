@@ -65,34 +65,42 @@
         if (persisted.timeTimerRunning) timeTimer.start()
     }
 
-    // Auto-save state on changes (debounced to avoid hammering localStorage during countdown)
-    let saveTimeout: ReturnType<typeof setTimeout> | null = null
-    $effect(() => {
-        const state = {
-            setTimerBase: setTimer.base,
-            setTimerRemaining: setTimer.remaining,
-            setTimerRunning: setTimer.isRunning(),
-            timeTimerBase: timeTimer.base,
-            timeTimerRemaining: timeTimer.remaining,
-            timeTimerRunning: timeTimer.isRunning(),
-            team0Logo: teamData[0].logo,
-            team1Logo: teamData[1].logo,
-            team0Score: teamData[0].score,
-            team1Score: teamData[1].score,
-            teamSwapActive: teamSwap.active,
-            showPoints: appData.showPoints,
-            scoresZoom: appData.scoresZoom,
-            logoZoom: appData.logoZoom,
-            darkTheme: appData.darkTheme,
-            showDecimals: appData.showDecimals,
-            instructionsSeen: true,
-        }
+    // Auto-save state periodically (every 2s) and on meaningful changes
+    let latestState: ReturnType<typeof buildState> | null = null
 
-        if (saveTimeout) clearTimeout(saveTimeout)
-        saveTimeout = setTimeout(() => {
-            saveState(state)
-            saveTimeout = null
-        }, 1000)
+    const buildState = () => ({
+        setTimerBase: setTimer.base,
+        setTimerRemaining: setTimer.remaining,
+        setTimerRunning: setTimer.running,
+        timeTimerBase: timeTimer.base,
+        timeTimerRemaining: timeTimer.remaining,
+        timeTimerRunning: timeTimer.running,
+        team0Logo: teamData[0].logo,
+        team1Logo: teamData[1].logo,
+        team0Score: teamData[0].score,
+        team1Score: teamData[1].score,
+        teamSwapActive: teamSwap.active,
+        showPoints: appData.showPoints,
+        scoresZoom: appData.scoresZoom,
+        logoZoom: appData.logoZoom,
+        darkTheme: appData.darkTheme,
+        showDecimals: appData.showDecimals,
+        instructionsSeen: true,
+    })
+
+    $effect(() => {
+        // Track all reactive state — this re-runs when anything changes
+        latestState = buildState()
+    })
+
+    // Save to localStorage every 2 seconds
+    const saveInterval = setInterval(() => {
+        if (latestState) saveState(latestState)
+    }, 2000)
+
+    // Also save immediately before page unload
+    window.addEventListener("beforeunload", () => {
+        if (latestState) saveState(latestState)
     })
 
     const handleSpaceAction = () => {
@@ -193,6 +201,7 @@
 
     onDestroy(() => {
         abortController.abort()
+        clearInterval(saveInterval)
     })
 
     const startAll = () => {
