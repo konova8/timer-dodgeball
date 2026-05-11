@@ -61,9 +61,10 @@
         }
     }
 
-    // Auto-save state on changes
+    // Auto-save state on changes (debounced to avoid hammering localStorage during countdown)
+    let saveTimeout: ReturnType<typeof setTimeout> | null = null
     $effect(() => {
-        saveState({
+        const state = {
             setTimerBase: setTimer.base,
             setTimerRemaining: setTimer.remaining,
             timeTimerBase: timeTimer.base,
@@ -79,7 +80,13 @@
             darkTheme: appData.darkTheme,
             showDecimals: appData.showDecimals,
             instructionsSeen: true,
-        })
+        }
+
+        if (saveTimeout) clearTimeout(saveTimeout)
+        saveTimeout = setTimeout(() => {
+            saveState(state)
+            saveTimeout = null
+        }, 1000)
     })
 
     const handleSpaceAction = () => {
