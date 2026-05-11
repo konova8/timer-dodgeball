@@ -66,6 +66,18 @@ export class TimerState {
 
     pendingResume = () => this.intervalId === null && this._remaining !== 0
 
+    isRunning = () => this.intervalId !== null
+
+    adjustTime = (deltaMs: number) => {
+        if (this.isRunning()) return
+
+        if (this._remaining !== null) {
+            this._remaining = Math.max(0, this._remaining + deltaMs)
+        } else {
+            this._base = Math.max(0, this._base + deltaMs)
+        }
+    }
+
     private resetInterval = () => {
         if (!this.intervalId) {
             return

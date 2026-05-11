@@ -31,6 +31,8 @@
     const isAnyModalOpen = () =>
         timeChangeModal.isOpen() || instructionsModal.isOpen()
 
+    const anyTimerRunning = () => setTimer.isRunning() || timeTimer.isRunning()
+
     // Restore state from localStorage
     const persisted = loadState()
     if (persisted) {
@@ -241,8 +243,11 @@
         <div
             class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:hidden"
         >
-            <button class="btn-start" onclick={startAll}>▶ All</button>
-            <button class="btn-pause" onclick={pauseAll}>⏸ All</button>
+            {#if anyTimerRunning()}
+                <button class="btn-pause" onclick={pauseAll}>⏸ All</button>
+            {:else}
+                <button class="btn-start" onclick={startAll}>▶ All</button>
+            {/if}
             <button class="btn-reset" onclick={resetTimers}>⏹ All</button>
             <button class="btn" onclick={teamSwap.toggle}>Swap teams</button>
             <button class="btn" onclick={activateLastSet}>Last set</button>
@@ -286,8 +291,11 @@
         <div
             class="hidden w-full items-center justify-center gap-4 whitespace-nowrap lg:flex"
         >
-            <button class="btn-start" onclick={startAll}>▶ All</button>
-            <button class="btn-pause" onclick={pauseAll}>⏸ All</button>
+            {#if anyTimerRunning()}
+                <button class="btn-pause" onclick={pauseAll}>⏸ All</button>
+            {:else}
+                <button class="btn-start" onclick={startAll}>▶ All</button>
+            {/if}
             <button class="btn-reset" onclick={resetTimers}>⏹ All</button>
             <button class="btn" onclick={appData.togglePoints}>
                 {appData.showPoints ? "Hide points" : "Show points"}
