@@ -79,7 +79,7 @@
     })
 
     $effect(() => {
-        void (props.timer.remaining ?? props.timer.base)
+        // Recalculate only when decimals visibility changes (not on every tick)
         void appData.showDecimals
         computeFontSize()
     })
