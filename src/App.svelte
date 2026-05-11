@@ -59,6 +59,10 @@
         if (persisted.showDecimals !== undefined) {
             appData.setShowDecimals(persisted.showDecimals)
         }
+
+        // Restart timers if they were running before reload
+        if (persisted.setTimerRunning) setTimer.start()
+        if (persisted.timeTimerRunning) timeTimer.start()
     }
 
     // Auto-save state on changes (debounced to avoid hammering localStorage during countdown)
@@ -67,8 +71,10 @@
         const state = {
             setTimerBase: setTimer.base,
             setTimerRemaining: setTimer.remaining,
+            setTimerRunning: setTimer.isRunning(),
             timeTimerBase: timeTimer.base,
             timeTimerRemaining: timeTimer.remaining,
+            timeTimerRunning: timeTimer.isRunning(),
             team0Logo: teamData[0].logo,
             team1Logo: teamData[1].logo,
             team0Score: teamData[0].score,

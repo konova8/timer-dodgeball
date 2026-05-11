@@ -3,8 +3,10 @@ const STORAGE_KEY = "timer-dodgeball-state"
 export type PersistedState = {
     setTimerBase: number
     setTimerRemaining: number | null
+    setTimerRunning: boolean
     timeTimerBase: number
     timeTimerRemaining: number | null
+    timeTimerRunning: boolean
     team0Logo: string | null
     team1Logo: string | null
     team0Score: number
