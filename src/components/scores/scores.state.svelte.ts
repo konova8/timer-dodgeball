@@ -1,5 +1,5 @@
 import type { Maybe } from "../../lib/types"
-import type { TeamLogo } from "./scores.helper"
+import { teamLogoData, type TeamLogo } from "./scores.helper"
 
 export class TeamData {
     private _logo: Maybe<TeamLogo> = $state(null)
@@ -7,6 +7,11 @@ export class TeamData {
 
     get logo() {
         return this._logo
+    }
+
+    get logoPath(): Maybe<string> {
+        if (this._logo === null) return null
+        return teamLogoData[this._logo].imagePath
     }
 
     setLogo = (logo: Maybe<TeamLogo>) => {

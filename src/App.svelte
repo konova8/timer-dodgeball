@@ -196,8 +196,6 @@
             <button class="btn" onclick={appData.togglePoints}>
                 {appData.showPoints ? "Hide points" : "Show points"}
             </button>
-            <button class="btn" onclick={appData.zoomIn}>Zoom +</button>
-            <button class="btn" onclick={appData.zoomOut}>Zoom -</button>
         </div>
         <!-- Desktop: single row with menu -->
         <div
@@ -209,8 +207,6 @@
             <button class="btn" onclick={appData.togglePoints}>
                 {appData.showPoints ? "Hide points" : "Show points"}
             </button>
-            <button class="btn" onclick={appData.zoomIn}>Zoom +</button>
-            <button class="btn" onclick={appData.zoomOut}>Zoom -</button>
             <div class="menu-container relative">
                 <button class="btn" onclick={toggleMenu}>More ▾</button>
                 {#if menuOpen}
@@ -229,6 +225,12 @@
                         <button class="btn" onclick={appData.scoresZoomOut}>
                             Scores zoom -
                         </button>
+                        <button class="btn" onclick={appData.logoZoomIn}>
+                            Logo zoom +
+                        </button>
+                        <button class="btn" onclick={appData.logoZoomOut}>
+                            Logo zoom -
+                        </button>
                         <button class="btn-full-reset" onclick={fullReset}>
                             Full reset
                         </button>
@@ -239,9 +241,7 @@
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
     <div
-        class="flex w-full flex-row justify-between max-2xl:flex-col"
-        style="transform: scale({appData.zoom /
-            100}); transform-origin: center;"
+        class="flex w-full flex-1 flex-row items-center justify-between max-2xl:flex-col"
     >
         {#if (timeTimer.remaining ?? timeTimer.base) > (setTimer.remaining ?? setTimer.base) + 50}
             <Timer label="Set" timer={setTimer} />

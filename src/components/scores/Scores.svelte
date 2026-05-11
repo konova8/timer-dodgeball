@@ -9,14 +9,47 @@
     import SingleScore from "./SingleScore/SingleScore.svelte"
 </script>
 
-<div
-    class="flex w-full justify-between gap-4 lg:gap-48"
-    style="transform: scale({appData.scoresZoom /
-        100}); transform-origin: center bottom;"
->
-    <SingleScore teamData={teamData[leftTeamKey()]} position={"left"} />
-    <div class="flex items-end">
-        <button class="btn" onclick={teamSwap.toggle}>Swap</button>
+<div class="flex w-full items-end justify-between gap-4 lg:gap-8">
+    <!-- Left logo (desktop only, fixed position) -->
+    <div
+        class="hidden shrink-0 lg:block"
+        style="transform: scale({appData.logoZoom /
+            100}); transform-origin: left bottom;"
+    >
+        {#if teamData[leftTeamKey()].logo !== null}
+            <img
+                src={teamData[leftTeamKey()].logoPath}
+                alt="Team logo"
+                class="max-h-40 max-w-40"
+            />
+        {/if}
     </div>
-    <SingleScore teamData={teamData[rightTeamKey()]} position={"right"} />
+
+    <!-- Scores (zoomable) -->
+    <div
+        class="flex w-full items-end justify-between"
+        style="transform: scale({appData.scoresZoom /
+            100}); transform-origin: center bottom;"
+    >
+        <SingleScore teamData={teamData[leftTeamKey()]} position={"left"} />
+        <div class="flex items-end">
+            <button class="btn" onclick={teamSwap.toggle}>Swap</button>
+        </div>
+        <SingleScore teamData={teamData[rightTeamKey()]} position={"right"} />
+    </div>
+
+    <!-- Right logo (desktop only, fixed position) -->
+    <div
+        class="hidden shrink-0 lg:block"
+        style="transform: scale({appData.logoZoom /
+            100}); transform-origin: right bottom;"
+    >
+        {#if teamData[rightTeamKey()].logo !== null}
+            <img
+                src={teamData[rightTeamKey()].logoPath}
+                alt="Team logo"
+                class="max-h-40 max-w-40"
+            />
+        {/if}
+    </div>
 </div>

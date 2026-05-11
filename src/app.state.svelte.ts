@@ -1,20 +1,8 @@
 class AppData {
     redBackground: boolean = $state(false)
-    private _zoom: number = $state(100)
     private _showPoints: boolean = $state(true)
     private _scoresZoom: number = $state(100)
-
-    get zoom() {
-        return this._zoom
-    }
-
-    zoomIn = () => {
-        this._zoom = Math.min(this._zoom + 10, 200)
-    }
-
-    zoomOut = () => {
-        this._zoom = Math.max(this._zoom - 10, 50)
-    }
+    private _logoZoom: number = $state(100)
 
     get showPoints() {
         return this._showPoints
@@ -34,6 +22,18 @@ class AppData {
 
     scoresZoomOut = () => {
         this._scoresZoom = Math.max(this._scoresZoom - 10, 50)
+    }
+
+    get logoZoom() {
+        return this._logoZoom
+    }
+
+    logoZoomIn = () => {
+        this._logoZoom = Math.min(this._logoZoom + 10, 200)
+    }
+
+    logoZoomOut = () => {
+        this._logoZoom = Math.max(this._logoZoom - 10, 50)
     }
 }
 
