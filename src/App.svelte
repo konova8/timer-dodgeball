@@ -173,14 +173,14 @@
 
 <div
     class={clsx(
-        "flex h-[100dvh] w-[100dvw] select-none flex-col-reverse items-center justify-between bg-white p-4 text-black transition-colors lg:select-auto lg:flex-col lg:p-12",
+        "flex h-[100dvh] w-[100dvw] select-none flex-col-reverse items-center justify-between bg-white p-4 text-black transition-colors lg:flex-col lg:p-12",
         {
             "bg-gray-950": !appData.redBackground,
             "bg-red-800": appData.redBackground,
         },
     )}
 >
-    <div class="flex w-full items-start justify-between gap-8">
+    <div class="relative z-20 flex w-full items-start justify-between gap-8">
         <LogoChoice teamData={teamData[leftTeamKey()]} />
         <!-- Mobile: grid layout -->
         <div
@@ -241,7 +241,7 @@
         <LogoChoice teamData={teamData[rightTeamKey()]} />
     </div>
     <div
-        class="flex w-full flex-1 flex-row items-center justify-between max-2xl:flex-col"
+        class="relative z-10 flex w-full flex-1 flex-row items-center justify-between max-2xl:flex-col"
     >
         {#if (timeTimer.remaining ?? timeTimer.base) > (setTimer.remaining ?? setTimer.base) + 50}
             <Timer label="Set" timer={setTimer} />

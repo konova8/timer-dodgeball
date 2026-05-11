@@ -10,9 +10,9 @@
 </script>
 
 <div class="flex w-full items-end justify-between gap-4 lg:gap-8">
-    <!-- Left logo (desktop only, fixed position) -->
+    <!-- Left logo (desktop only, fixed position, behind scores) -->
     <div
-        class="hidden shrink-0 lg:block"
+        class="relative z-0 hidden shrink-0 lg:block"
         style="transform: scale({appData.logoZoom /
             100}); transform-origin: left bottom;"
     >
@@ -25,9 +25,9 @@
         {/if}
     </div>
 
-    <!-- Scores (zoomable) -->
+    <!-- Scores (zoomable, above logos) -->
     <div
-        class="flex w-full items-end justify-between"
+        class="relative z-10 flex w-full items-end justify-between"
         style="transform: scale({appData.scoresZoom /
             100}); transform-origin: center bottom;"
     >
@@ -38,9 +38,9 @@
         <SingleScore teamData={teamData[rightTeamKey()]} position={"right"} />
     </div>
 
-    <!-- Right logo (desktop only, fixed position) -->
+    <!-- Right logo (desktop only, fixed position, behind scores) -->
     <div
-        class="hidden shrink-0 lg:block"
+        class="relative z-0 hidden shrink-0 lg:block"
         style="transform: scale({appData.logoZoom /
             100}); transform-origin: right bottom;"
     >
