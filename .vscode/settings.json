@@ -15,5 +15,10 @@
     },
     "files.associations": {
         "*.css": "postcss"
-    }
+    },
+    "kiroAgent.trustedCommands": [
+        "npm run typecheck",
+        "npm run build",
+        "npx prettier *"
+    ]
 }

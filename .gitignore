@@ -14,3 +14,5 @@ dist-ssr
 
 vuten.con
 vite.config.js
+
+.playwright-mcp/
