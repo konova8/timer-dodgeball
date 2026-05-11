@@ -200,7 +200,9 @@
             <button class="btn" onclick={appData.zoomOut}>Zoom -</button>
         </div>
         <!-- Desktop: single row with menu -->
-        <div class="hidden w-full items-center justify-center gap-4 lg:flex">
+        <div
+            class="hidden w-full items-center justify-center gap-4 whitespace-nowrap lg:flex"
+        >
             <button class="btn-start" onclick={startAll}>Start all</button>
             <button class="btn-pause" onclick={pauseAll}>Pause all</button>
             <button class="btn-reset" onclick={resetTimers}>Reset all</button>
