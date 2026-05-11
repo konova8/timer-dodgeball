@@ -250,7 +250,7 @@
                 <button class="btn w-full" onclick={toggleMenu}>More ▾</button>
                 {#if menuOpen}
                     <div
-                        class="absolute left-0 top-full z-40 mt-2 flex min-w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl"
+                        class="absolute bottom-full right-0 z-40 mb-2 flex w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl"
                     >
                         <button class="btn" onclick={appData.scoresZoomIn}>
                             Scores zoom +
