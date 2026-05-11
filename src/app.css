@@ -7,22 +7,6 @@
         @apply font-mono;
     }
 
-    .timer-display {
-        font-size: 0;
-    }
-
-    .timer-main {
-        font-size: clamp(4rem, 18vw, 16rem);
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.02em;
-    }
-
-    .timer-ms {
-        font-size: clamp(1.5rem, 5vw, 4rem);
-        font-variant-numeric: tabular-nums;
-        vertical-align: baseline;
-    }
-
     .btn {
         @apply rounded-lg border border-white bg-blue-500 px-4 py-2 font-bold text-white transition-all hover:bg-blue-700;
     }
