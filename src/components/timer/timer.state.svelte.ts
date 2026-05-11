@@ -29,6 +29,10 @@ export class TimerState {
         return this._remaining
     }
 
+    setRemaining = (timeMs: Maybe<number>) => {
+        this._remaining = timeMs
+    }
+
     start = () => {
         if (this.intervalId || this._remaining === 0) {
             return

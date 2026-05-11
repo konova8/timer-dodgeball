@@ -8,12 +8,20 @@ class AppData {
         return this._showPoints
     }
 
+    setShowPoints = (value: boolean) => {
+        this._showPoints = value
+    }
+
     togglePoints = () => {
         this._showPoints = !this._showPoints
     }
 
     get scoresZoom() {
         return this._scoresZoom
+    }
+
+    setScoresZoom = (value: number) => {
+        this._scoresZoom = value
     }
 
     scoresZoomIn = () => {
@@ -26,6 +34,10 @@ class AppData {
 
     get logoZoom() {
         return this._logoZoom
+    }
+
+    setLogoZoom = (value: number) => {
+        this._logoZoom = value
     }
 
     logoZoomIn = () => {

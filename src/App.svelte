@@ -7,6 +7,7 @@
     import InstructionsModal from "./components/modals/instructions-modal/InstructionsModal.svelte"
     import { timeChangeModal } from "./components/modals/time-change-modal/time-change-modal.state.svelte"
     import TimeChangeModal from "./components/modals/time-change-modal/TimeChangeModal.svelte"
+    import { isTeamLogo } from "./components/scores/scores.helper"
     import {
         leftTeamKey,
         rightTeamKey,
@@ -21,6 +22,7 @@
     } from "./components/timer/timer.state.svelte"
     import Timer from "./components/timer/Timer.svelte"
     import { onKeyUp } from "./lib/events/on-key-up"
+    import { loadState, saveState } from "./lib/persistence"
 
     const abortController = new AbortController()
 
@@ -28,6 +30,47 @@
 
     const isAnyModalOpen = () =>
         timeChangeModal.isOpen() || instructionsModal.isOpen()
+
+    // Restore state from localStorage
+    const persisted = loadState()
+    if (persisted) {
+        setTimer.setBase(persisted.setTimerBase)
+        setTimer.setRemaining(persisted.setTimerRemaining)
+        timeTimer.setBase(persisted.timeTimerBase)
+        timeTimer.setRemaining(persisted.timeTimerRemaining)
+
+        if (persisted.team0Logo && isTeamLogo(persisted.team0Logo)) {
+            teamData[0].setLogo(persisted.team0Logo)
+        }
+        if (persisted.team1Logo && isTeamLogo(persisted.team1Logo)) {
+            teamData[1].setLogo(persisted.team1Logo)
+        }
+        teamData[0].setScore(persisted.team0Score)
+        teamData[1].setScore(persisted.team1Score)
+        teamSwap.active = persisted.teamSwapActive
+        appData.setShowPoints(persisted.showPoints)
+        appData.setScoresZoom(persisted.scoresZoom)
+        appData.setLogoZoom(persisted.logoZoom)
+    }
+
+    // Auto-save state on changes
+    $effect(() => {
+        saveState({
+            setTimerBase: setTimer.base,
+            setTimerRemaining: setTimer.remaining,
+            timeTimerBase: timeTimer.base,
+            timeTimerRemaining: timeTimer.remaining,
+            team0Logo: teamData[0].logo,
+            team1Logo: teamData[1].logo,
+            team0Score: teamData[0].score,
+            team1Score: teamData[1].score,
+            teamSwapActive: teamSwap.active,
+            showPoints: appData.showPoints,
+            scoresZoom: appData.scoresZoom,
+            logoZoom: appData.logoZoom,
+            instructionsSeen: true,
+        })
+    })
 
     const handleSpaceAction = () => {
         if (isAnyModalOpen()) {
@@ -235,6 +278,9 @@
                         </button>
                         <button class="btn" onclick={appData.logoZoomOut}>
                             Logo zoom -
+                        </button>
+                        <button class="btn" onclick={instructionsModal.open}>
+                            Show instructions
                         </button>
                         <button class="btn-full-reset" onclick={fullReset}>
                             Full reset

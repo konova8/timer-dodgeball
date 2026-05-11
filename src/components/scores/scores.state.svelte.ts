@@ -34,6 +34,10 @@ export class TeamData {
     resetScore = () => {
         this._score = 0
     }
+
+    setScore = (score: number) => {
+        this._score = score
+    }
 }
 
 export const teamData: [TeamData, TeamData] = [new TeamData(), new TeamData()]
