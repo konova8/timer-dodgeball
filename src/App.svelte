@@ -239,9 +239,8 @@
 >
     <div class="relative z-20 flex w-full items-start justify-between gap-8">
         <LogoChoice teamData={teamData[leftTeamKey()]} />
-        <!-- Mobile: grid layout -->
         <div
-            class="grid w-full grid-cols-2 grid-rows-2 items-center justify-center gap-4 lg:hidden"
+            class="flex w-full items-center justify-center gap-4 whitespace-nowrap"
         >
             {#if anyTimerRunning()}
                 <button class="btn-pause" onclick={pauseAll}>⏸ All</button>
@@ -249,71 +248,21 @@
                 <button class="btn-start" onclick={startAll}>▶ All</button>
             {/if}
             <button class="btn-reset" onclick={resetTimers}>⏹ All</button>
-            <button class="btn" onclick={teamSwap.toggle}>Swap teams</button>
             <button class="btn" onclick={activateLastSet}>Last set</button>
-            <button class="btn" onclick={openTimeChangeModal}>
-                Change times
-            </button>
-            <button class="btn" onclick={appData.togglePoints}>
-                {appData.showPoints ? "Hide points" : "Show points"}
-            </button>
-            <div class="menu-container relative">
-                <button class="btn w-full" onclick={toggleMenu}>More ▾</button>
-                {#if menuOpen}
-                    <div
-                        class="absolute bottom-full right-0 z-40 mb-2 flex w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl"
-                    >
-                        <button class="btn" onclick={appData.scoresZoomIn}>
-                            Scores zoom +
-                        </button>
-                        <button class="btn" onclick={appData.scoresZoomOut}>
-                            Scores zoom -
-                        </button>
-                        <button class="btn" onclick={instructionsModal.open}>
-                            Show instructions
-                        </button>
-                        <button class="btn" onclick={appData.toggleDecimals}>
-                            {appData.showDecimals
-                                ? "Hide decimals"
-                                : "Show decimals"}
-                        </button>
-                        <button class="btn" onclick={appData.toggleTheme}>
-                            {appData.darkTheme ? "Light theme" : "Dark theme"}
-                        </button>
-                        <button class="btn-full-reset" onclick={fullReset}>
-                            Full reset
-                        </button>
-                    </div>
-                {/if}
-            </div>
-        </div>
-        <!-- Desktop: single row with menu -->
-        <div
-            class="hidden w-full items-center justify-center gap-4 whitespace-nowrap lg:flex"
-        >
-            {#if anyTimerRunning()}
-                <button class="btn-pause" onclick={pauseAll}>⏸ All</button>
-            {:else}
-                <button class="btn-start" onclick={startAll}>▶ All</button>
-            {/if}
-            <button class="btn-reset" onclick={resetTimers}>⏹ All</button>
-            <button class="btn" onclick={appData.togglePoints}>
-                {appData.showPoints ? "Hide points" : "Show points"}
-            </button>
             <div class="menu-container relative">
                 <button class="btn" onclick={toggleMenu}>More ▾</button>
                 {#if menuOpen}
                     <div
-                        class="absolute right-0 top-full z-40 mt-2 flex min-w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl"
+                        class="absolute right-0 top-full z-40 mt-2 flex w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl lg:top-full lg:mt-2"
                     >
                         <button class="btn" onclick={teamSwap.toggle}>
                             Swap teams
                         </button>
-                        <button class="btn" onclick={activateLastSet}>
-                            Last set
-                        </button>
                         <button class="btn" onclick={openTimeChangeModal}>
                             Change times
+                        </button>
+                        <button class="btn" onclick={appData.togglePoints}>
+                            {appData.showPoints ? "Hide points" : "Show points"}
                         </button>
                         <button class="btn" onclick={appData.scoresZoomIn}>
                             Scores zoom +
@@ -327,9 +276,6 @@
                         <button class="btn" onclick={appData.logoZoomOut}>
                             Logo zoom -
                         </button>
-                        <button class="btn" onclick={instructionsModal.open}>
-                            Show instructions
-                        </button>
                         <button class="btn" onclick={appData.toggleDecimals}>
                             {appData.showDecimals
                                 ? "Hide decimals"
@@ -337,6 +283,9 @@
                         </button>
                         <button class="btn" onclick={appData.toggleTheme}>
                             {appData.darkTheme ? "Light theme" : "Dark theme"}
+                        </button>
+                        <button class="btn" onclick={instructionsModal.open}>
+                            Show instructions
                         </button>
                         <button class="btn-full-reset" onclick={fullReset}>
                             Full reset

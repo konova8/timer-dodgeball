@@ -110,6 +110,15 @@
         {/if}
     </div>
     <div class="flex shrink-0 items-center justify-center gap-2">
+        {#if props.timer.isRunning()}
+            <button class="btn-pause" onclick={props.timer.pause}>⏸</button>
+        {:else}
+            <button class="btn-start" onclick={props.timer.start}>▶</button>
+        {/if}
+        <button class="btn-reset" onclick={() => props.timer.reset()}>
+            ⏹
+        </button>
+        <div class="w-4"></div>
         <button
             class="btn"
             onclick={() => props.timer.adjustTime(60_000)}
@@ -137,14 +146,6 @@
             disabled={props.timer.isRunning()}
         >
             -1s
-        </button>
-        {#if props.timer.isRunning()}
-            <button class="btn-pause" onclick={props.timer.pause}>⏸</button>
-        {:else}
-            <button class="btn-start" onclick={props.timer.start}>▶</button>
-        {/if}
-        <button class="btn-reset" onclick={() => props.timer.reset()}>
-            ⏹
         </button>
     </div>
 </div>
