@@ -3,20 +3,20 @@
 ```
 src/
 ├── main.ts                  # Entry point
-├── App.svelte               # Root component (layout, toolbar, shortcut, persistenza)
-├── app.css                  # Stili globali Tailwind + classi btn
+├── App.svelte               # Root component (layout, toolbar, shortcut, persistenza, feedback visivo)
+├── app.css                  # @font-face DSEG7, stili globali Tailwind, classi btn
 ├── app.state.svelte.ts      # Stato globale (showPoints, scoresZoom, logoZoom, darkTheme, showDecimals)
 ├── components/
 │   ├── timer/               # Timer countdown
 │   │   ├── Timer.svelte           # Display timer con auto-sizing font + bottoni controllo
-│   │   ├── timer.state.svelte.ts  # Classe TimerState (countdown, start/pause/reset/adjustTime)
-│   │   └── timer.helper.ts        # Side effects (suono allarme, flash rosso)
+│   │   ├── timer.state.svelte.ts  # Classe TimerState (countdown, start/pause/reset/adjustTime/isRunning)
+│   │   └── timer.helper.ts        # Side effects (suono allarme pre-caricato, flash rosso)
 │   ├── scores/              # Punteggio squadre
-│   │   ├── Scores.svelte          # Layout punteggi + loghi (zoom indipendenti)
-│   │   ├── SingleScore/SingleScore.svelte  # Singolo punteggio con bottoni +/-
+│   │   ├── Scores.svelte          # Layout punteggi + loghi (zoom indipendenti, dimensioni reali)
+│   │   ├── SingleScore/SingleScore.svelte  # Singolo punteggio (2 cifre, zoom solo numeri)
 │   │   ├── scores.state.svelte.ts # Classi TeamData, TeamSwap
 │   │   └── scores.helper.ts       # Catalogo loghi squadre
-│   ├── logo-choice/         # Selettore logo squadra (dropdown)
+│   ├── logo-choice/         # Selettore logo squadra (dropdown, solo desktop)
 │   │   └── LogoChoice.svelte
 │   └── modals/
 │       ├── instructions-modal/      # Modale istruzioni (solo prima visita)
@@ -36,11 +36,12 @@ src/
 │       ├── on-key-down.ts
 │       └── on-key-up.ts
 public/
+├── fonts/                   # DSEG7Classic-Bold (woff2, woff, ttf)
 ├── images/
 │   ├── icons/               # Icone app (timer.svg, timer.png, pwa-*.png)
 │   └── logos/               # Loghi squadre (.png, .jpg)
 └── sounds/
-    └── alarm.mp3            # Suono fine timer
+    └── alarm.mp3            # Suono fine timer (pre-caricato)
 ```
 
 ## Convenzioni di naming
@@ -54,11 +55,12 @@ public/
 ## Pattern architetturali
 
 -   **Stato come classi**: lo stato reattivo è gestito tramite classi con campi `$state` e getter/metodi, esportate come singleton
--   **Reattività**: tutti i campi che influenzano la UI devono essere `$state` (incluso `intervalId` per `isRunning()`)
+-   **Reattività**: tutti i campi che influenzano la UI devono essere `$state` (incluso `intervalId` per `isRunning`). Usare getter (`get running()`) per proprietà derivate che devono essere tracciate dagli `$effect`
 -   **Separazione stato/vista**: ogni componente complesso ha il proprio file `.state.svelte.ts` separato dal `.svelte`
 -   **Helper separati**: logica non-reattiva (side effects, dati statici, validazione) in file `.helper.ts`
 -   **Lib condivisa**: utility generiche in `src/lib/`, non legate a componenti specifici
 -   **Nessun store Svelte classico**: il progetto usa esclusivamente le runes di Svelte 5 (`$state`) al posto di writable/readable store
--   **Azioni su keyup**: gli shortcut da tastiera e il touch usano l'evento di rilascio (keyup/touchend), non la pressione
--   **Auto-sizing font**: il Timer usa `ResizeObserver` + binary search per calcolare il font-size massimo che entra nel container
--   **Persistenza automatica**: un `$effect` in App.svelte salva tutto lo stato in localStorage ad ogni cambiamento
+-   **Azioni su keyup/touchend**: gli shortcut da tastiera e il touch usano l'evento di rilascio, non la pressione
+-   **Auto-sizing font**: il Timer usa `ResizeObserver` + binary search per calcolare il font-size massimo che entra nel container. Non ricalcola ad ogni tick (le cifre DSEG7 hanno larghezza uniforme)
+-   **Persistenza**: `$effect` aggiorna una variabile `latestState`, un `setInterval` (2s) la scrive in localStorage, `beforeunload` salva immediatamente
+-   **Audio pre-caricato**: singola istanza `Audio` creata al module load, riusata con `currentTime = 0`

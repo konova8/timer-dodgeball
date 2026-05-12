@@ -19,9 +19,12 @@
 
 ## Font
 
--   **Audiowide** (Google Fonts) — font per timer e punteggi, cifre a larghezza uniforme
--   Caricato via `<link>` in `index.html`
+-   **DSEG7 Classic Bold** — font a 7 segmenti (stile cronometro digitale), self-hosted
+-   File in `public/fonts/` (woff2, woff, ttf)
+-   `@font-face` dichiarato in `app.css` con `font-display: swap`
 -   Classe Tailwind custom: `font-timer` (definita in `tailwind.config.js`)
+-   Cifre a larghezza uniforme per definizione (nessun saltello durante il countdown)
+-   Licenza: OFL (SIL Open Font License)
 -   Il font del resto dell'app è `font-mono` (default)
 
 ## PWA
@@ -37,9 +40,10 @@ L'app è installabile come Progressive Web App:
 
 Lo stato dell'app è salvato in `localStorage` (chiave `timer-dodgeball-state`):
 
--   Timer: base e remaining di entrambi i timer
+-   Timer: base, remaining, running di entrambi i timer
 -   Squadre: loghi, punteggi, swap
 -   UI: showPoints, scoresZoom, logoZoom, darkTheme, showDecimals
+-   Strategia: `$effect` aggiorna `latestState` reattivamente, `setInterval` (2s) scrive in localStorage, `beforeunload` salva immediatamente prima di chiudere/ricaricare
 -   Il modale istruzioni usa un flag separato (`timer-dodgeball-instructions-seen`)
 
 ## Comandi
