@@ -313,7 +313,7 @@
                 <button class="btn" onclick={toggleMenu}>More ▾</button>
                 {#if menuOpen}
                     <div
-                        class="absolute right-0 top-full z-40 mt-2 flex w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl lg:top-full lg:mt-2"
+                        class="absolute bottom-full right-0 z-40 mb-2 flex w-48 flex-col gap-2 rounded-lg border border-gray-600 bg-gray-800 p-3 shadow-xl lg:bottom-auto lg:top-full lg:mb-0 lg:mt-2"
                     >
                         <button class="btn" onclick={teamSwap.toggle}>
                             Swap teams
