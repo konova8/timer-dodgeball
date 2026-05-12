@@ -60,7 +60,7 @@ export const teamLogoData: Record<TeamLogo, TeamLogoData> = {
     },
     "faenza-gryphons": {
         imagePath: "/images/logos/faenza-gryphons.jpg",
-        logoName: "Faenza Gryphons"
+        logoName: "Faenza Gryphons",
     },
     swarm: { imagePath: "/images/logos/swarm.png", logoName: "Swarm" },
 }
