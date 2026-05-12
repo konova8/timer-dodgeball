@@ -27,6 +27,7 @@
     const abortController = new AbortController()
 
     let menuOpen = $state(false)
+    let pressing = $state(false)
 
     const isAnyModalOpen = () =>
         timeChangeModal.isOpen() || instructionsModal.isOpen()
@@ -121,18 +122,26 @@
     }
 
     onMount(() => {
-        // Prevent spacebar from scrolling
+        // Prevent spacebar from scrolling + show press feedback
         document.addEventListener(
             "keydown",
             e => {
                 if (e.key === " ") {
                     e.preventDefault()
+                    if (!e.repeat && !isAnyModalOpen()) pressing = true
                 }
             },
             { signal: abortController.signal },
         )
 
-        onKeyUp(" ", handleSpaceAction, abortController.signal)
+        onKeyUp(
+            " ",
+            () => {
+                pressing = false
+                handleSpaceAction()
+            },
+            abortController.signal,
+        )
 
         const timerToggleCallback = (timer: TimerState) => () => {
             if (isAnyModalOpen()) return
@@ -164,14 +173,33 @@
             abortController.signal,
         )
 
-        // Touch support for smartphone (touchend = release)
+        // Touch support for smartphone (touchstart = press feedback, touchend = action)
+        document.addEventListener(
+            "touchstart",
+            (e: TouchEvent) => {
+                if (isAnyModalOpen()) return
+                const target = e.target as HTMLElement
+                if (
+                    target.closest(
+                        "button, input, select, textarea, a, [role='button']",
+                    )
+                ) {
+                    return
+                }
+                pressing = true
+            },
+            { signal: abortController.signal },
+        )
+
         document.addEventListener(
             "touchend",
             (e: TouchEvent) => {
+                if (!pressing) return
+                pressing = false
+
                 if (isAnyModalOpen()) return
 
                 const target = e.target as HTMLElement
-                // Ignore touches on buttons, inputs, and interactive elements
                 if (
                     target.closest(
                         "button, input, select, textarea, a, [role='button']",
@@ -182,6 +210,14 @@
 
                 e.preventDefault()
                 handleSpaceAction()
+            },
+            { signal: abortController.signal },
+        )
+
+        document.addEventListener(
+            "touchcancel",
+            () => {
+                pressing = false
             },
             { signal: abortController.signal },
         )
@@ -252,9 +288,12 @@
     class={clsx(
         "flex h-[100dvh] w-[100dvw] select-none flex-col-reverse items-center justify-between p-4 transition-colors lg:flex-col lg:p-12",
         {
-            "bg-red-800 text-white": appData.redBackground,
-            "bg-black text-white": !appData.redBackground && appData.darkTheme,
-            "bg-white text-black": !appData.redBackground && !appData.darkTheme,
+            "bg-yellow-600 text-white": pressing && !appData.redBackground,
+            "bg-red-800 text-white": appData.redBackground && !pressing,
+            "bg-black text-white":
+                !appData.redBackground && !pressing && appData.darkTheme,
+            "bg-white text-black":
+                !appData.redBackground && !pressing && !appData.darkTheme,
         },
     )}
 >
